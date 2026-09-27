@@ -38,6 +38,7 @@ function App() {
   return (
     <>
       <h1>skibidi</h1>
+      <h2>write what you want</h2>
       <input
         type="text"
         value={newPhrase}
