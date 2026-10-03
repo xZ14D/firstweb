@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600&display=swap");
+
+:root {
+  --sendit-blue: #0b4a96;
+  --sendit-green: #96c13a;
+  --sendit-button: #1a6dcc;
+  --sendit-text: #5f6b7d;
+  --sendit-panel: #f2f6fb;
+  --sendit-whatsapp: #3ddc6b;
+}
+
+.firstPart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 0 0 0 40px;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Beat the global `nav ~ *` / `nav + *` rules (44rem column, auto margins, padding)
+   so the hero spans the full width of the screen */
+nav ~ .firstPart {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 0 40px;
+  min-height: calc(100vh - var(--nav-height, 64px));
+}
+
+/* ---------- Left column ---------- */
+.firstPart__content {
+  flex: 1 1 50%;
+  max-width: 560px;
+  z-index: 2;
+}
+
+.firstPart__brand {
+  margin: 0;
+  font-weight: 3000;
+  font-size: clamp(2.6rem, 10vw, 7rem);
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+  color: var(--sendit-blue);
+}
+
+.firstPart__typed {
+  display: flex;
+  align-items: center;
+  min-height: 1.3em;
+  margin: 0.15em 0 0;
+  font-weight: 700;
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--sendit-green);
+  white-space: nowrap;
+}
+
+.firstPart__cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.1em;
+  margin-left: 10px;
+  background: var(--sendit-green);
+  animation: firstPart-blink 1s steps(1) infinite;
+}
+
+@keyframes firstPart-blink {
+  50% { opacity: 0; }
+}
+
+.firstPart__subtitle {
+  max-width: 420px;
+  margin: 48px 0 56px;
+  font-size: 1.15rem;
+  font-weight: 1000;
+  line-height: 2;
+  color: var(--sendit-text);
+}
+
+.firstPart__button {
+  display: inline-block;
+  padding: 18px 36px;
+  border-radius: 8px;
+  border-width: 3px;
+  border-color: #0b4a96;
+  border-style: solid;
+  background: var(--sendit-button);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.firstPart__button:hover,
+.firstPart__button:focus-visible {
+  background: var(--sendit-blue);
+  outline: none;
+}
+
+/* ---------- Right column (illustration on a quarter-circle panel) ---------- */
+.firstPart__visual {
+  position: relative;
+  flex: 1 1 50%;
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 93vh;
+  background: var(--sendit-panel);
+  border-top-left-radius: 100% 80%;
+}
+
+.firstPart__visual img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+/* ---------- WhatsApp floating button ---------- */
+.firstPart__whatsapp {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.firstPart__whatsappLabel {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  color: #111;
+  font-size: 1.05rem;
+}
+
+.firstPart__whatsappIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--sendit-whatsapp);
+  box-shadow: 0 6px 18px rgba(61, 220, 107, 0.45);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .firstPart,
+  nav ~ .firstPart {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 80px 24px 0;
+  }
+  .firstPart__typed { white-space: normal; }
+  .firstPart__subtitle { margin: 24px 0 32px; }
+  .firstPart__visual {
+    width: calc(100% + 48px);
+    height: 55vh;
+    margin: 40px -24px 0;
+    border-top-left-radius: 60% 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firstPart__cursor { animation: none; }
+}

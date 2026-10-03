@@ -1,112 +1,84 @@
 import { useState, useRef, useEffect } from "react";
-import { supabase } from "../supabaseClient"; // note the ../ since we're inside /pages
+import { supabase } from "../supabaseClient";
+import "./Home.css";
 
-function Camera() {
-  const videoRef = useRef(null);
-  const streamRef = useRef(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function startCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" }, // "environment" for rear camera
-          audio: false,
-        });
-
-        // If the component unmounted while waiting for permission
-        if (cancelled) {
-          stream.getTracks().forEach((t) => t.stop());
-          return;
-        }
-
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        setError(err.name + ": " + err.message);
-      }
-    }
-
-    startCamera();
-
-    return () => {
-      cancelled = true;
-      streamRef.current?.getTracks().forEach((t) => t.stop());
-    };
-  }, []);
-
-  if (error) return <p>Could not access camera: {error}</p>;
-
-  return (
-    <video
-      ref={videoRef}
-      autoPlay
-      playsInline
-      muted
-      style={{ width: "100%", maxWidth: 640 }}
-    />
-  );
-}
+// Phrases typed in the green headline (typewriter effect)
+const PHRASES = [
+  "a proffiesional team",
+  "a fast dilivery",
+  "a very good service",
+];
 
 export default function Home() {
-  const [phrases, setPhrases] = useState([]);
-  const [newPhrase, setNewPhrase] = useState("");
+  const [text, setText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
+  // Typewriter effect
   useEffect(() => {
-    getPhrases();
-  }, []);
+    const current = PHRASES[phraseIndex];
+    let delay = deleting ? 40 : 90;
 
-  async function addPhrase(phrase) {
-    if (!phrase.trim()) return; // don't add empty phrases
+    if (!deleting && text === current) delay = 1800; // pause when finished
+    if (deleting && text === "") delay = 400;
 
-    const { data, error } = await supabase
-      .from("phrases")
-      .insert([{ phrase }])
-      .select();
+    const timer = setTimeout(() => {
+      if (!deleting && text === current) {
+        setDeleting(true);
+      } else if (deleting && text === "") {
+        setDeleting(false);
+        setPhraseIndex((i) => (i + 1) % PHRASES.length);
+      } else {
+        setText(
+          deleting
+            ? current.slice(0, text.length - 1)
+            : current.slice(0, text.length + 1)
+        );
+      }
+    }, delay);
 
-    if (error) {
-      console.error("Error adding phrase:", error);
-    } else {
-      setPhrases([...phrases, ...data]);
-      setNewPhrase(""); // clear the input after adding
-    }
-  }
-
-  async function getPhrases() {
-    const { data, error } = await supabase.from("phrases").select("*");
-
-    if (error) {
-      console.error("Error fetching phrases:", error);
-    } else {
-      setPhrases(data);
-    }
-  }
+    return () => clearTimeout(timer);
+  }, [text, deleting, phraseIndex]);
 
   return (
     <>
-      <h1>skibidi</h1>
-      <h2>write what you want</h2>
+      <section className="firstPart">
+        <div className="firstPart__content">
+          <h1 className="firstPart__brand">SKIBIdi</h1>
+          <h2 className="firstPart__typed">
+            <span>{text}</span>
+            <span className="firstPart__cursor" aria-hidden="true" />
+          </h2>
+          <p className="firstPart__subtitle">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vero molestiae at.
+          </p>
+          <a href="#contact" className="firstPart__button">
+            Contactez-nous
+          </a>
+        </div>
 
-      <input
-        type="text"
-        value={newPhrase}
-        onChange={(e) => setNewPhrase(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && addPhrase(newPhrase)}
-        placeholder="Enter a phrase"
-      />
-      <button onClick={() => addPhrase(newPhrase)}>Add</button>
+        <div className="firstPart__visual">
+          {/* Replace with your own illustration file */}
+          <img
+            src="/hero-illustration.png"
+            alt="nonon"
+          />
+        </div>
 
-      <ul>
-        {phrases.map((p) => (
-          <li key={p.id}>{p.phrase}</li>
-        ))}
-      </ul>
-
-      <Camera />
+        <a
+          href="https://wa.me/212600000000"
+          className="firstPart__whatsapp"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span className="firstPart__whatsappLabel">Contactez-nous</span>
+          <span className="firstPart__whatsappIcon" aria-label="WhatsApp">
+            <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff">
+              <path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0 0 16 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1 1.1-3.9-.3-.4A10.7 10.7 0 1 1 16 26.700zm5.9-8c-.3-.2-1.900-.9-2.200-1-.3-.1-.5-.2-.7.2-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.400-.5-2.600-1.600-1-.9-1.600-1.900-1.800-2.200-.2-.3 0-.5.100-.7l.5-.5c.1-.2.200-.3.300-.5.100-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.100-.8.400-.3.300-1 1-1 2.500s1.100 2.900 1.200 3.100c.2.200 2.100 3.200 5.100 4.500 3 1.200 3 .8 3.600.8.600-.1 1.900-.8 2.200-1.500.3-.7.300-1.400.2-1.500-.1-.2-.3-.2-.6-.4z" />
+            </svg>
+          </span>
+        </a>
+      </section>
     </>
   );
 }
