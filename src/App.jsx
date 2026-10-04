@@ -1,26 +1,52 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
+import { useEffect, useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { supabase } from './lib/supabase'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
+import PublicBarber from './pages/PublicBarber'
+import Home from './pages/Home'
 
-import "./App.css";
+function ProtectedRoute({ session, children }) {
+  if (!session) return <Navigate to="/login" replace />
+  return children
+}
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <nav>
-        <img className="logoNav" src="src/logo.png"></img>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </nav>
+  const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  useEffect(() => {
+    let active = true
+    supabase.auth.getSession().then(({ data }) => {
+      if (active) {
+        setSession(data.session)
+        setLoading(false)
+      }
+    })
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession)
+      setLoading(false)
+    })
+
+    return () => {
+      active = false
+      listener.subscription.unsubscribe()
+    }
+  }, [])
+
+  if (loading) return <div className="screen-center">Loading…</div>
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home session={session} />} />
+      <Route path="/login" element={session ? <Navigate to="/dashboard" replace /> : <Login />} />
+      <Route path="/signup" element={session ? <Navigate to="/dashboard" replace /> : <Signup />} />
+      <Route path="/dashboard" element={<ProtectedRoute session={session}><Dashboard /></ProtectedRoute>} />
+      <Route path="/:username" element={<PublicBarber />} />
+    </Routes>
+  )
 }
 
 //# make changes to your code in your editor
