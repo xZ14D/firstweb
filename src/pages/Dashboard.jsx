@@ -5,6 +5,21 @@ import Loading from '../components/Loading'
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
+const DEFAULT_CUSTOMIZATION = {
+  primary_color: '#171717',
+  secondary_color: '#E9E7E1',
+  background_style: 'light',
+  button_style: 'rounded',
+  page_style: 'minimal',
+  enable_effects: true,
+  show_phone: true,
+  show_address: true,
+  show_description: true,
+  allow_notes: true,
+  profile_image_url: '',
+  cover_image_url: ''
+}
+
 export default function Dashboard() {
   const navigate = useNavigate()
   const [profile, setProfile] = useState(null)
@@ -51,7 +66,7 @@ export default function Dashboard() {
     </header>
     <div className="dashboard-layout container">
       <aside className="sidebar">
-        {['overview', 'business', 'services', 'hours'].map(item => <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item[0].toUpperCase() + item.slice(1)}</button>)}
+        {['overview', 'business', 'services', 'hours', 'customization'].map(item => <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item[0].toUpperCase() + item.slice(1)}</button>)}
       </aside>
       <section className="dashboard-content">
         {message && <div className="success">{message}</div>}
@@ -59,6 +74,7 @@ export default function Dashboard() {
         {tab === 'business' && <Business profile={profile} onSaved={load} />}
         {tab === 'services' && <Services barberId={profile.id} services={services} onChanged={load} />}
         {tab === 'hours' && <Hours barberId={profile.id} hours={hours} onChanged={load} />}
+        {tab === 'customization' && <Customization profile={profile} onSaved={load} />}
       </section>
     </div>
   </main>
@@ -136,6 +152,124 @@ function Hours({ barberId, hours, onChanged }) {
     setSaving(false); onChanged()
   }
   return <Editor title="Opening hours" subtitle="Set when customers can book appointments."><form className="hours-list" onSubmit={save}>{form.map((h, i) => <div className="hours-row" key={i}><strong>{DAYS[i]}</strong><label className="switch"><input type="checkbox" checked={h.is_open} onChange={e => setForm(form.map((x, j) => j === i ? { ...x, is_open: e.target.checked } : x))} /><span /></label><input type="time" disabled={!h.is_open} value={h.opening_time || ''} onChange={e => setForm(form.map((x, j) => j === i ? { ...x, opening_time: e.target.value } : x))} /><span>to</span><input type="time" disabled={!h.is_open} value={h.closing_time || ''} onChange={e => setForm(form.map((x, j) => j === i ? { ...x, closing_time: e.target.value } : x))} /></div>)}<button className="button" disabled={saving}>{saving ? 'Saving…' : 'Save hours'}</button></form></Editor>
+}
+
+function Customization({ profile, onSaved }) {
+  const [form, setForm] = useState(() => ({ ...DEFAULT_CUSTOMIZATION, ...profile }))
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [uploading, setUploading] = useState('')
+
+  useEffect(() => setForm({ ...DEFAULT_CUSTOMIZATION, ...profile }), [profile])
+
+  function update(key, value) {
+    setForm(current => ({ ...current, [key]: value }))
+  }
+
+  async function uploadImage(type, file) {
+    if (!file) return
+    setError('')
+    if (!file.type.startsWith('image/')) return setError('Please choose an image file.')
+    if (file.size > 5 * 1024 * 1024) return setError('Images must be 5 MB or smaller.')
+    setUploading(type)
+    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const path = `${profile.id}/${type}-${Date.now()}.${extension}`
+    const { error: uploadError } = await supabase.storage.from('barber-assets').upload(path, file, { upsert: true, contentType: file.type })
+    if (uploadError) {
+      setError(uploadError.message)
+      setUploading('')
+      return
+    }
+    const { data } = supabase.storage.from('barber-assets').getPublicUrl(path)
+    update(type === 'profile' ? 'profile_image_url' : 'cover_image_url', data.publicUrl)
+    setUploading('')
+  }
+
+  function clearImage(type) {
+    update(type === 'profile' ? 'profile_image_url' : 'cover_image_url', '')
+  }
+
+  async function save(e) {
+    e.preventDefault(); setSaving(true); setError('')
+    const payload = {
+      primary_color: form.primary_color || null,
+      secondary_color: form.secondary_color || null,
+      background_style: form.background_style || null,
+      button_style: form.button_style || null,
+      page_style: form.page_style || null,
+      enable_effects: form.enable_effects,
+      show_phone: form.show_phone,
+      show_address: form.show_address,
+      show_description: form.show_description,
+      allow_notes: form.allow_notes,
+      profile_image_url: form.profile_image_url || null,
+      cover_image_url: form.cover_image_url || null
+    }
+    const { error: saveError } = await supabase.from('profiles').update(payload).eq('id', profile.id)
+    if (saveError) setError(saveError.message)
+    else onSaved()
+    setSaving(false)
+  }
+
+  function resetToDefaults() {
+    setForm(current => ({ ...current, ...DEFAULT_CUSTOMIZATION, profile_image_url: '', cover_image_url: '' }))
+  }
+
+  return <Editor title="Customize your page" subtitle="Everything here is optional. Leave the defaults for the normal Trimly look.">
+    <form className="customization-form" onSubmit={save}>
+      <div className="customization-section">
+        <div className="customization-heading"><div><h3>Colors</h3><p>Choose the main and accent colors used on your public page.</p></div></div>
+        <div className="customization-grid two">
+          <ColorField label="Main color" value={form.primary_color} onChange={v => update('primary_color', v)} />
+          <ColorField label="Secondary color" value={form.secondary_color} onChange={v => update('secondary_color', v)} />
+        </div>
+      </div>
+
+      <div className="customization-section">
+        <div className="customization-heading"><div><h3>Appearance</h3><p>Small style choices change the personality of the page without changing its layout.</p></div></div>
+        <div className="choice-group"><span className="choice-label">Page style</span><div className="choice-row">{[['minimal', 'Minimal'], ['modern', 'Modern'], ['classic', 'Classic'], ['elegant', 'Elegant']].map(([value, label]) => <Choice key={value} label={label} selected={form.page_style === value} onClick={() => update('page_style', value)} />)}</div></div>
+        <div className="choice-group"><span className="choice-label">Button style</span><div className="choice-row">{[['rounded', 'Rounded'], ['soft', 'Soft'], ['square', 'Square']].map(([value, label]) => <Choice key={value} label={label} selected={form.button_style === value} onClick={() => update('button_style', value)} />)}</div></div>
+        <div className="choice-group"><span className="choice-label">Background</span><div className="choice-row">{[['light', 'Light'], ['warm', 'Warm'], ['cool', 'Cool'], ['dark', 'Dark']].map(([value, label]) => <Choice key={value} label={label} selected={form.background_style === value} onClick={() => update('background_style', value)} />)}</div></div>
+        <ToggleRow label="Subtle effects" description="Gentle hover, fade and entrance effects on the public page." checked={form.enable_effects !== false} onChange={v => update('enable_effects', v)} />
+      </div>
+
+      <div className="customization-section">
+        <div className="customization-heading"><div><h3>Images</h3><p>Both images are optional. If you do not add them, the page uses the normal Trimly design.</p></div></div>
+        <div className="image-custom-grid">
+          <ImageUpload title="Profile image" value={form.profile_image_url} uploading={uploading === 'profile'} onUpload={file => uploadImage('profile', file)} onClear={() => clearImage('profile')} circle />
+          <ImageUpload title="Cover image" value={form.cover_image_url} uploading={uploading === 'cover'} onUpload={file => uploadImage('cover', file)} onClear={() => clearImage('cover')} />
+        </div>
+      </div>
+
+      <div className="customization-section">
+        <div className="customization-heading"><div><h3>Public information</h3><p>Choose which optional business information customers can see.</p></div></div>
+        <ToggleRow label="Phone number" description="Show your phone number and call button." checked={form.show_phone !== false} onChange={v => update('show_phone', v)} />
+        <ToggleRow label="Address" description="Show your shop address." checked={form.show_address !== false} onChange={v => update('show_address', v)} />
+        <ToggleRow label="Description" description="Show your business description below the shop name." checked={form.show_description !== false} onChange={v => update('show_description', v)} />
+        <ToggleRow label="Customer notes" description="Let customers add notes when booking." checked={form.allow_notes !== false} onChange={v => update('allow_notes', v)} />
+      </div>
+
+      {error && <div className="error">{error}</div>}
+      <div className="customization-actions"><button type="button" className="button secondary" onClick={resetToDefaults}>Reset defaults</button><button className="button" disabled={saving || !!uploading}>{saving ? 'Saving…' : 'Save customization'}</button></div>
+    </form>
+  </Editor>
+}
+
+function ColorField({ label, value, onChange }) {
+  return <label className="color-field">{label}<div><input className="color-picker" type="color" value={value || '#171717'} onChange={e => onChange(e.target.value)} /><input className="color-text" value={value || ''} onChange={e => onChange(e.target.value)} placeholder="#171717" maxLength="7" /></div></label>
+}
+
+function Choice({ label, selected, onClick }) { return <button type="button" className={`choice ${selected ? 'selected' : ''}`} onClick={onClick}>{label}</button> }
+
+function ToggleRow({ label, description, checked, onChange }) {
+  return <div className="custom-toggle-row"><div><strong>{label}</strong><span>{description}</span></div><label className="switch"><input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} /><span /></label></div>
+}
+
+function ImageUpload({ title, value, uploading, onUpload, onClear, circle = false }) {
+  return <div className="image-upload-card">
+    <div className={`image-preview ${circle ? 'circle' : ''}`}>{value ? <img src={value} alt="" /> : <span>{circle ? 'Photo' : 'Cover'}</span>}</div>
+    <div className="image-upload-info"><strong>{title}</strong><span>Optional · JPG, PNG or WebP · max 5 MB</span><div className="image-upload-actions"><label className="button secondary upload-button">{uploading ? 'Uploading…' : value ? 'Replace' : 'Upload'}<input type="file" accept="image/png,image/jpeg,image/webp" onChange={e => { onUpload(e.target.files?.[0]); e.target.value = '' }} disabled={uploading} /></label>{value && <button type="button" className="button ghost" onClick={onClear}>Remove</button>}</div></div>
+  </div>
 }
 
 function Editor({ title, subtitle, children }) { return <div className="panel editor"><div className="panel-title"><div><h2>{title}</h2><p>{subtitle}</p></div></div>{children}</div> }
