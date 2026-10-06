@@ -3,6 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import Loading from '../components/Loading'
 
+const { data: { session } } = await supabase.auth.getSession()
+
+console.log('SESSION:', session)
+console.log('USER:', session?.user)
+console.log('USER ID:', session?.user?.id)
+
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 const DEFAULT_CUSTOMIZATION = {
