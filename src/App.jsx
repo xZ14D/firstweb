@@ -50,5 +50,5 @@ export default function App() {
 }
 
 //git add .
-//git commit -m "describe what you changed"
+//git commit -m "dd"
 //git push
