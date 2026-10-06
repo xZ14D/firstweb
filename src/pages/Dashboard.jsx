@@ -48,11 +48,6 @@ export default function Dashboard() {
     setHours(h.data || [])
     setAppointments(a.data || [])
     setLoading(false)
-    const { data: { session } } = await supabase.auth.getSession()
-
-    console.log('SESSION:', session)
-    console.log('USER:', session?.user)
-    console.log('USER ID:', session?.user?.id)
   }
 
   useEffect(() => { load() }, [])
@@ -180,6 +175,11 @@ function Customization({ profile, onSaved }) {
     setUploading(type)
     const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const path = `${profile.id}/${type}-${Date.now()}.${extension}`
+    const { data: { session } } = await supabase.auth.getSession()
+
+    console.log('AUTH USER ID:', session?.user?.id)
+    console.log('PROFILE ID:', profile?.id)
+    console.log('MATCH:', session?.user?.id === profile?.id)
     const { error: uploadError } = await supabase.storage.from('barber-assets').upload(path, file, { upsert: true, contentType: file.type })
     if (uploadError) {
       setError(uploadError.message)
