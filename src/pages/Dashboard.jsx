@@ -33,6 +33,7 @@ export default function Dashboard() {
   async function load() {
     setLoading(true)
     const { data: { user } } = await supabase.auth.getUser()
+    
     if (!user) return navigate('/login')
 
     const [p, s, h, a] = await Promise.all([
@@ -47,6 +48,11 @@ export default function Dashboard() {
     setHours(h.data || [])
     setAppointments(a.data || [])
     setLoading(false)
+    const { data: { session } } = await supabase.auth.getSession()
+
+    console.log('SESSION:', session)
+    console.log('USER:', session?.user)
+    console.log('USER ID:', session?.user?.id)
   }
 
   useEffect(() => { load() }, [])
