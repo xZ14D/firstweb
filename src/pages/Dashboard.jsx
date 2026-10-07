@@ -190,16 +190,6 @@ function Customization({ profile, onSaved }) {
         error: sessionError
       } = await supabase.auth.getSession()
   
-      console.log('========== IMAGE UPLOAD DEBUG ==========')
-      console.log('Session:', session)
-      console.log('Auth user ID:', session?.user?.id)
-      console.log('Profile ID:', profile?.id)
-      console.log('IDs match:', session?.user?.id === profile?.id)
-      console.log('File:', file)
-      console.log('File name:', file.name)
-      console.log('File type:', file.type)
-      console.log('File size:', file.size)
-  
       if (sessionError) {
         console.error('SESSION ERROR:', sessionError)
         setError(sessionError.message)
@@ -221,19 +211,12 @@ function Customization({ profile, onSaved }) {
       const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
       const path = `${profile.id}/${type}-${Date.now()}.${extension}`
   
-      console.log('Upload bucket:', 'barber-assets')
-      console.log('Upload path:', path)
-  
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('barber-assets')
         .upload(path, file, {
           upsert: true,
           contentType: file.type
         })
-  
-      console.log('========== UPLOAD RESULT ==========')
-      console.log('Upload data:', uploadData)
-      console.log('Upload error:', uploadError)
   
       if (uploadError) {
         console.error('FULL UPLOAD ERROR:', uploadError)
@@ -247,13 +230,9 @@ function Customization({ profile, onSaved }) {
         return
       }
   
-      console.log('Uploaded path:', uploadData.path)
-  
       const { data: publicData } = supabase.storage
         .from('barber-assets')
         .getPublicUrl(uploadData.path)
-  
-      console.log('Public URL:', publicData?.publicUrl)
   
       if (!publicData?.publicUrl) {
         console.error('NO PUBLIC URL GENERATED')
@@ -263,14 +242,9 @@ function Customization({ profile, onSaved }) {
   
       const imageUrl = publicData.publicUrl
   
-      console.log('Testing uploaded image URL...')
-  
       const response = await fetch(imageUrl, {
         method: 'HEAD'
       })
-  
-      console.log('Image URL status:', response.status)
-      console.log('Image URL exists:', response.ok)
   
       if (!response.ok) {
         console.error('THE UPLOAD PATH DOES NOT RESOLVE TO A PUBLIC OBJECT')
@@ -285,9 +259,6 @@ function Customization({ profile, onSaved }) {
           : 'cover_image_url',
         imageUrl
       )
-  
-      console.log('========== IMAGE UPLOAD SUCCESS ==========')
-      console.log('Final image URL:', imageUrl)
   
     } catch (err) {
       console.error('UNEXPECTED IMAGE UPLOAD ERROR:', err)
