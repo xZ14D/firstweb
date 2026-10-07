@@ -169,26 +169,132 @@ function Customization({ profile, onSaved }) {
 
   async function uploadImage(type, file) {
     if (!file) return
+  
     setError('')
-    if (!file.type.startsWith('image/')) return setError('Please choose an image file.')
-    if (file.size > 5 * 1024 * 1024) return setError('Images must be 5 MB or smaller.')
-    setUploading(type)
-    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
-    const path = `${profile.id}/${type}-${Date.now()}.${extension}`
-    const { data: { session } } = await supabase.auth.getSession()
-
-    console.log('AUTH USER ID:', session?.user?.id)
-    console.log('PROFILE ID:', profile?.id)
-    console.log('MATCH:', session?.user?.id === profile?.id)
-    const { error: uploadError } = await supabase.storage.from('barber-assets').upload(path, file, { upsert: true, contentType: file.type })
-    if (uploadError) {
-      setError(uploadError.message)
-      setUploading('')
+  
+    if (!file.type.startsWith('image/')) {
+      setError('Please choose an image file.')
       return
     }
-    const { data } = supabase.storage.from('barber-assets').getPublicUrl(path)
-    update(type === 'profile' ? 'profile_image_url' : 'cover_image_url', data.publicUrl)
-    setUploading('')
+  
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Images must be 5 MB or smaller.')
+      return
+    }
+  
+    setUploading(type)
+  
+    try {
+      const {
+        data: { session },
+        error: sessionError
+      } = await supabase.auth.getSession()
+  
+      console.log('========== IMAGE UPLOAD DEBUG ==========')
+      console.log('Session:', session)
+      console.log('Auth user ID:', session?.user?.id)
+      console.log('Profile ID:', profile?.id)
+      console.log('IDs match:', session?.user?.id === profile?.id)
+      console.log('File:', file)
+      console.log('File name:', file.name)
+      console.log('File type:', file.type)
+      console.log('File size:', file.size)
+  
+      if (sessionError) {
+        console.error('SESSION ERROR:', sessionError)
+        setError(sessionError.message)
+        return
+      }
+  
+      if (!session) {
+        console.error('NO ACTIVE SESSION')
+        setError('You are not authenticated. Please log in again.')
+        return
+      }
+  
+      if (!profile?.id) {
+        console.error('NO PROFILE ID')
+        setError('Your barber profile could not be found.')
+        return
+      }
+  
+      const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+      const path = `${profile.id}/${type}-${Date.now()}.${extension}`
+  
+      console.log('Upload bucket:', 'barber-assets')
+      console.log('Upload path:', path)
+  
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('barber-assets')
+        .upload(path, file, {
+          upsert: true,
+          contentType: file.type
+        })
+  
+      console.log('========== UPLOAD RESULT ==========')
+      console.log('Upload data:', uploadData)
+      console.log('Upload error:', uploadError)
+  
+      if (uploadError) {
+        console.error('FULL UPLOAD ERROR:', uploadError)
+        setError(uploadError.message || 'Image upload failed.')
+        return
+      }
+  
+      if (!uploadData?.path) {
+        console.error('UPLOAD SUCCEEDED BUT NO PATH WAS RETURNED')
+        setError('Upload completed but Supabase did not return a file path.')
+        return
+      }
+  
+      console.log('Uploaded path:', uploadData.path)
+  
+      const { data: publicData } = supabase.storage
+        .from('barber-assets')
+        .getPublicUrl(uploadData.path)
+  
+      console.log('Public URL:', publicData?.publicUrl)
+  
+      if (!publicData?.publicUrl) {
+        console.error('NO PUBLIC URL GENERATED')
+        setError('Could not generate the image URL.')
+        return
+      }
+  
+      const imageUrl = publicData.publicUrl
+  
+      console.log('Testing uploaded image URL...')
+  
+      const response = await fetch(imageUrl, {
+        method: 'HEAD'
+      })
+  
+      console.log('Image URL status:', response.status)
+      console.log('Image URL exists:', response.ok)
+  
+      if (!response.ok) {
+        console.error('THE UPLOAD PATH DOES NOT RESOLVE TO A PUBLIC OBJECT')
+        console.error('URL:', imageUrl)
+        setError(`Image uploaded but could not be accessed. Storage returned ${response.status}.`)
+        return
+      }
+  
+      update(
+        type === 'profile'
+          ? 'profile_image_url'
+          : 'cover_image_url',
+        imageUrl
+      )
+  
+      console.log('========== IMAGE UPLOAD SUCCESS ==========')
+      console.log('Final image URL:', imageUrl)
+  
+    } catch (err) {
+      console.error('UNEXPECTED IMAGE UPLOAD ERROR:', err)
+      setError(err?.message || 'Unexpected image upload error.')
+    } finally {
+      setUploading('')
+    }
   }
 
   function clearImage(type) {
