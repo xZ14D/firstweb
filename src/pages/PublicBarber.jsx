@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import Loading from '../components/Loading'
 
-const DEFAULTS = {
+const DEFAULT_CUSTOMIZATION = {
   primary_color: '#171717',
   secondary_color: '#E9E7E1',
   background_style: 'light',
@@ -13,32 +13,27 @@ const DEFAULTS = {
   show_phone: true,
   show_address: true,
   show_description: true,
-  allow_notes: true
+  allow_notes: true,
+  profile_image_url: '',
+  cover_image_url: ''
+}
+
+const BACKGROUNDS = {
+  light: { bg: '#f7f6f3', surface: '#ffffff', soft: '#f1f0ec', text: '#171717', muted: '#707070', border: '#e2e0db' },
+  warm: { bg: '#f6f0e8', surface: '#fffaf4', soft: '#eee3d5', text: '#2a241e', muted: '#776e64', border: '#ded2c4' },
+  cool: { bg: '#f1f4f7', surface: '#ffffff', soft: '#e7edf2', text: '#17202a', muted: '#68737e', border: '#d9e0e6' },
+  dark: { bg: '#151515', surface: '#202020', soft: '#292929', text: '#f5f5f5', muted: '#aaa', border: '#363636' }
 }
 
 function localDateKey(date) {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
 }
 
-function safeColor(value, fallback) {
-  return /^#[0-9a-fA-F]{6}$/.test(value || '') ? value : fallback
-}
-
-function readableTextColor(hex) {
-  const value = hex.replace('#', '')
-  const r = parseInt(value.slice(0, 2), 16) / 255
-  const g = parseInt(value.slice(2, 4), 16) / 255
-  const b = parseInt(value.slice(4, 6), 16) / 255
-  const convert = channel => channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
-  const luminance = 0.2126 * convert(r) + 0.7152 * convert(g) + 0.0722 * convert(b)
-  return luminance > 0.48 ? '#171717' : '#ffffff'
-}
-
-function formatDate(dateKey) {
-  return new Date(`${dateKey}T12:00:00`).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+function formatAppointmentDate(start) {
+  return new Date(start).toLocaleString([], { dateStyle: 'full', timeStyle: 'short' })
 }
 
 export default function PublicBarber() {
@@ -53,22 +48,18 @@ export default function PublicBarber() {
   const [selectedTime, setSelectedTime] = useState('')
   const [customer, setCustomer] = useState({ name: '', phone: '', email: '', notes: '' })
   const [booking, setBooking] = useState(false)
-  const [result, setResult] = useState('')
+  const [confirmation, setConfirmation] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    let active = true
     async function load() {
-      setLoading(true)
       const { data: p } = await supabase.from('profiles').select('*').eq('username', username).single()
-      if (!active) return
       if (!p) return setLoading(false)
       const [s, h, a] = await Promise.all([
         supabase.from('services').select('*').eq('barber_id', p.id).order('created_at'),
         supabase.from('business_hours').select('*').eq('barber_id', p.id).order('day_of_week'),
         supabase.from('appointments').select('start_time, end_time').eq('barber_id', p.id).eq('status', 'confirmed').gte('start_time', new Date().toISOString())
       ])
-      if (!active) return
       setProfile(p)
       setServices(s.data || [])
       setHours(h.data || [])
@@ -76,146 +67,183 @@ export default function PublicBarber() {
       setLoading(false)
     }
     load()
-    return () => { active = false }
   }, [username])
 
-  const settings = { ...DEFAULTS, ...profile }
-  const primary = safeColor(settings.primary_color, DEFAULTS.primary_color)
-  const secondary = safeColor(settings.secondary_color, DEFAULTS.secondary_color)
-  const primaryText = readableTextColor(primary)
-  const customStyle = {
-    '--public-primary': primary,
-    '--public-primary-text': primaryText,
-    '--public-secondary': secondary
+  const customization = { ...DEFAULT_CUSTOMIZATION, ...(profile || {}) }
+  const background = BACKGROUNDS[customization.background_style] || BACKGROUNDS.light
+  const pageStyle = customization.page_style || 'minimal'
+  const buttonStyle = customization.button_style || 'rounded'
+  const pageClass = `public-page style-${pageStyle} button-${buttonStyle} background-${customization.background_style} ${customization.enable_effects === false ? 'effects-off' : 'effects-on'}`
+  const pageVars = {
+    '--public-primary': customization.primary_color || DEFAULT_CUSTOMIZATION.primary_color,
+    '--public-secondary': customization.secondary_color || DEFAULT_CUSTOMIZATION.secondary_color,
+    '--public-bg': background.bg,
+    '--public-surface': background.surface,
+    '--public-soft': background.soft,
+    '--public-text': background.text,
+    '--public-muted': background.muted,
+    '--public-border': background.border
   }
-  const themeClasses = `public-theme background-${settings.background_style || 'light'} buttons-${settings.button_style || 'rounded'} style-${settings.page_style || 'minimal'} ${settings.enable_effects === false ? 'effects-off' : 'effects-on'}`
 
   const selectedDay = new Date(`${selectedDate}T12:00:00`).getDay()
   const dayHours = hours.find(h => h.day_of_week === selectedDay)
+
   const slots = useMemo(() => {
-    if (!selectedService || !dayHours?.is_open || !dayHours.opening_time || !dayHours.closing_time) return []
+    if (!selectedService || !dayHours?.is_open) return []
     const [openH, openM] = dayHours.opening_time.split(':').map(Number)
     const [closeH, closeM] = dayHours.closing_time.split(':').map(Number)
     const start = new Date(`${selectedDate}T00:00:00`)
     start.setHours(openH, openM, 0, 0)
     const close = new Date(`${selectedDate}T00:00:00`)
     close.setHours(closeH, closeM, 0, 0)
-    const now = new Date()
     const result = []
     for (let cursor = new Date(start); cursor.getTime() + selectedService.duration_minutes * 60000 <= close.getTime(); cursor.setMinutes(cursor.getMinutes() + 30)) {
       const end = new Date(cursor.getTime() + selectedService.duration_minutes * 60000)
       const conflict = appointments.some(a => cursor < new Date(a.end_time) && end > new Date(a.start_time))
-      if (!conflict && cursor > now) result.push(cursor.toTimeString().slice(0, 5))
+      if (!conflict && cursor > new Date()) result.push(cursor.toTimeString().slice(0, 5))
     }
     return result
   }, [selectedService, selectedDate, dayHours, appointments])
 
-  const nextDays = useMemo(() => Array.from({ length: 7 }, (_, i) => {
-    const d = new Date()
-    d.setHours(12, 0, 0, 0)
-    d.setDate(d.getDate() + i)
-    return { date: d, key: localDateKey(d) }
-  }), [])
-
   async function book(e) {
     e.preventDefault()
     setError('')
-    setResult('')
     if (!selectedService || !selectedTime) return setError('Choose a service and time.')
     setBooking(true)
-    const start = new Date(`${selectedDate}T${selectedTime}:00`).toISOString()
+
+    const start = new Date(`${selectedDate}T${selectedTime}:00`)
+    const startIso = start.toISOString()
+    const customerName = customer.name.trim()
+
     const { data, error: bookingError } = await supabase.rpc('create_appointment', {
       p_barber_id: profile.id,
       p_service_id: selectedService.id,
-      p_customer_name: customer.name.trim(),
+      p_customer_name: customerName,
       p_customer_phone: customer.phone.trim(),
       p_customer_email: customer.email.trim() || null,
-      p_start_time: start,
-      p_notes: settings.allow_notes !== false ? customer.notes.trim() || null : null
+      p_start_time: startIso,
+      p_notes: customization.allow_notes === false ? null : (customer.notes.trim() || null)
     })
-    if (bookingError) setError(bookingError.message)
-    else {
-      setResult(`Booked successfully. Your appointment is ${new Date(data.start_time).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}.`)
-      setCustomer({ name: '', phone: '', email: '', notes: '' })
-      setSelectedTime('')
+
+    if (bookingError) {
+      setError(bookingError.message)
+      setBooking(false)
+      return
     }
+
+    const appointmentStart = data?.start_time || startIso
+    const appointmentEnd = data?.end_time || new Date(start.getTime() + selectedService.duration_minutes * 60000).toISOString()
+
+    setConfirmation({
+      name: customerName,
+      service: selectedService.name,
+      price: selectedService.price,
+      duration: selectedService.duration_minutes,
+      start: appointmentStart,
+      end: appointmentEnd
+    })
+
+    setAppointments(current => [...current, { start_time: appointmentStart, end_time: appointmentEnd }])
+    setCustomer({ name: '', phone: '', email: '', notes: '' })
+    setSelectedTime('')
     setBooking(false)
   }
 
-  if (loading) return <div className="screen-center"><Loading /></div>
-  if (!profile) return <div className="screen-center"><div className="public-not-found"><span className="eyebrow">Trimly</span><h1>Page not found</h1><p>This barber page doesn't exist or is no longer available.</p><Link className="button" to="/">Go home</Link></div></div>
+  function chooseService(service) {
+    setSelectedService(service)
+    setSelectedTime('')
+    setError('')
+    setConfirmation(null)
+  }
 
-  return <main className={`public-page ${themeClasses}`} style={customStyle}>
+  function bookAnother() {
+    setConfirmation(null)
+    setError('')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  if (loading) return <div className="screen-center"><Loading /></div>
+  if (!profile) return <div className="screen-center"><div><h1>Page not found</h1><Link to="/">Go home</Link></div></div>
+
+  return <main className={pageClass} style={pageVars}>
+    {customization.cover_image_url && <div className="public-cover" style={{ backgroundImage: `url(${customization.cover_image_url})` }} />}
+
     <nav className="public-nav container">
       <Link className="logo" to="/">Trimly</Link>
       <span>Book an appointment</span>
     </nav>
 
     <section className="business-hero container">
-      {settings.cover_image_url && <div className="business-cover"><img src={settings.cover_image_url} alt="" /></div>}
-      <div className="business-hero-inner">
-        <div className={`public-avatar ${settings.profile_image_url ? 'has-image' : ''}`}>
-          {settings.profile_image_url ? <img src={settings.profile_image_url} alt={profile.business_name || 'Barber'} /> : (profile.business_name || 'B').slice(0, 1).toUpperCase()}
-        </div>
-        <div className="business-hero-copy">
-          <span className="public-eyebrow">Barber shop</span>
-          <h1>{profile.business_name || 'Your barber shop'}</h1>
-          <div className="business-meta">
-            {profile.city && <span>{profile.city}</span>}
-            {settings.show_address !== false && profile.address && <span>{profile.address}</span>}
-            {settings.show_phone !== false && profile.phone && <a className="public-link" href={`tel:${profile.phone}`}>Call {profile.phone}</a>}
-          </div>
-          {settings.show_description !== false && profile.description && <p className="business-description">{profile.description}</p>}
-        </div>
+      {customization.profile_image_url ? (
+        <img className="public-avatar public-avatar-image" src={customization.profile_image_url} alt="" />
+      ) : (
+        <div className="public-avatar">{(profile.business_name || 'B').slice(0, 1).toUpperCase()}</div>
+      )}
+      <div className="business-hero-content">
+        <span className="public-eyebrow">Barber shop</span>
+        <h1>{profile.business_name}</h1>
+        {profile.city && <p className="business-meta">{profile.city}</p>}
+        {customization.show_address !== false && profile.address && <p className="business-meta">{profile.address}</p>}
+        {customization.show_phone !== false && profile.phone && <p className="business-meta"><a className="public-link" href={`tel:${profile.phone}`}>{profile.phone}</a></p>}
+        {customization.show_description !== false && profile.description && <p className="business-description">{profile.description}</p>}
       </div>
-      <div className="hero-accent" aria-hidden="true" />
     </section>
 
     <section className="public-content container">
       <div className="public-main">
-        <div className="booking-steps">
-          <div className="booking-step"><span>1</span><div><strong>Choose a service</strong><small>Pick what you need</small></div></div>
-          <div className="booking-step"><span>2</span><div><strong>Choose a time</strong><small>Find an available slot</small></div></div>
-          <div className="booking-step"><span>3</span><div><strong>Confirm</strong><small>No account required</small></div></div>
-        </div>
-
         <div className="public-section">
-          <div className="section-title-row"><div><span className="public-eyebrow">What we offer</span><h2>Services</h2></div><span className="section-count">{services.length} {services.length === 1 ? 'service' : 'services'}</span></div>
+          <div className="public-section-heading"><div><span className="public-eyebrow">Services</span><h2>Choose your service</h2></div></div>
           <div className="public-services">
-            {services.map(service => <button type="button" className={`public-service ${selectedService?.id === service.id ? 'selected' : ''}`} key={service.id} onClick={() => { setSelectedService(service); setSelectedTime(''); setResult(''); setError('') }}>
-              <div className="service-copy"><span className="service-index">{String(services.indexOf(service) + 1).padStart(2, '0')}</span><div><strong>{service.name}</strong>{service.description && <p>{service.description}</p>}<span>{service.duration_minutes} min</span></div></div>
-              <div className="service-price"><strong>{service.price} DH</strong><span>{selectedService?.id === service.id ? 'Selected' : 'Choose'}</span></div>
+            {services.map(service => <button className={`public-service ${selectedService?.id === service.id ? 'selected' : ''}`} key={service.id} onClick={() => chooseService(service)}>
+              <div><strong>{service.name}</strong><span>{service.duration_minutes} min</span></div>
+              <strong>{service.price} DH</strong>
             </button>)}
           </div>
-          {services.length === 0 && <div className="public-empty"><strong>No services yet</strong><span>This barber hasn't added bookable services yet.</span></div>}
+          {services.length === 0 && <p className="empty">No services have been added yet.</p>}
         </div>
 
         {selectedService && <div className="public-section booking-box">
-          <div className="section-title-row"><div><span className="public-eyebrow">Availability</span><h2>Choose a time</h2></div><span className="selected-service-label">{selectedService.name}</span></div>
-          <div className="date-row">
-            {nextDays.map(({ date, key }) => <button type="button" key={key} className={key === selectedDate ? 'selected' : ''} onClick={() => { setSelectedDate(key); setSelectedTime(''); setError('') }}><span>{date.toLocaleDateString([], { weekday: 'short' })}</span><strong>{date.getDate()}</strong><small>{date.toLocaleDateString([], { month: 'short' })}</small></button>)}
-          </div>
-          <div className="availability-label">{dayHours?.is_open ? `Available times · ${dayHours.opening_time?.slice(0, 5)}–${dayHours.closing_time?.slice(0, 5)}` : 'Closed on this day'}</div>
-          <div className="time-grid">
-            {slots.map(time => <button type="button" key={time} className={selectedTime === time ? 'selected' : ''} onClick={() => { setSelectedTime(time); setError('') }}>{time}</button>)}
-            {slots.length === 0 && <div className="time-empty"><strong>No available times</strong><span>Try another day or choose another service.</span></div>}
-          </div>
+          <div className="public-section-heading"><div><span className="public-eyebrow">Availability</span><h2>Choose a time</h2></div></div>
+          <div className="date-row">{Array.from({ length: 7 }, (_, i) => {
+            const d = new Date()
+            d.setDate(d.getDate() + i)
+            const key = localDateKey(d)
+            return <button key={key} className={key === selectedDate ? 'selected' : ''} onClick={() => { setSelectedDate(key); setSelectedTime(''); setConfirmation(null) }}>
+              <span>{d.toLocaleDateString([], { weekday: 'short' })}</span><strong>{d.getDate()}</strong>
+            </button>
+          })}</div>
+          <div className="time-grid">{slots.map(time => <button key={time} className={selectedTime === time ? 'selected' : ''} onClick={() => { setSelectedTime(time); setConfirmation(null) }}>{time}</button>)}{slots.length === 0 && <p className="empty">No available times on this date.</p>}</div>
         </div>}
       </div>
 
       <aside className="booking-card">
-        <div className="booking-card-header"><span className="public-eyebrow">Your appointment</span><h2>{selectedService ? selectedService.name : 'Book an appointment'}</h2></div>
-        {selectedService && selectedTime ? <form className="form-stack" onSubmit={book}>
-          <div className="booking-summary"><div><span>Service</span><strong>{selectedService.name}</strong></div><div><span>Date & time</span><strong>{formatDate(selectedDate)} · {selectedTime}</strong></div><div><span>Duration</span><strong>{selectedService.duration_minutes} min</strong></div><div className="summary-total"><span>Total</span><strong>{selectedService.price} DH</strong></div></div>
-          <label>Name<input placeholder="Your name" value={customer.name} onChange={e => setCustomer({ ...customer, name: e.target.value })} required /></label>
-          <label>Phone<input type="tel" placeholder="Your phone number" value={customer.phone} onChange={e => setCustomer({ ...customer, phone: e.target.value })} required /></label>
-          <label>Email <span className="optional">optional</span><input type="email" placeholder="you@example.com" value={customer.email} onChange={e => setCustomer({ ...customer, email: e.target.value })} /></label>
-          {settings.allow_notes !== false && <label>Notes <span className="optional">optional</span><textarea rows="3" placeholder="Anything the barber should know?" value={customer.notes} onChange={e => setCustomer({ ...customer, notes: e.target.value })} /></label>}
-          {error && <div className="error">{error}</div>}
-          {result && <div className="success">{result}</div>}
-          <button className="button full public-book-button" disabled={booking}>{booking ? 'Booking…' : 'Confirm appointment'}</button>
-          <small className="booking-note">No account required. Your booking is confirmed through the shop.</small>
-        </form> : <div className="booking-placeholder"><div className="placeholder-icon">✦</div><p>Select a service, date and available time to continue.</p><small>No account required.</small></div>}
+        {confirmation ? <div className="confirmation-card">
+          <div className="confirmation-icon"><span>✓</span></div>
+          <span className="public-eyebrow">Booking complete</span>
+          <h2>Appointment confirmed</h2>
+          <p className="confirmation-lead">You're booked, {confirmation.name}.</p>
+          <div className="confirmation-details">
+            <div><span>Service</span><strong>{confirmation.service}</strong></div>
+            <div><span>When</span><strong>{formatAppointmentDate(confirmation.start)}</strong></div>
+            <div><span>Duration</span><strong>{confirmation.duration} minutes</strong></div>
+            <div><span>Price</span><strong>{confirmation.price} DH</strong></div>
+          </div>
+          <p className="confirmation-note">Please arrive a few minutes before your appointment.</p>
+          <button className="button full" onClick={bookAnother}>Book another appointment</button>
+        </div> : <>
+          <span className="public-eyebrow">Your appointment</span>
+          <h2>{selectedService ? `Book ${selectedService.name}` : 'Book an appointment'}</h2>
+          {selectedService && selectedTime ? <form className="form-stack" onSubmit={book}>
+            <div className="booking-summary"><strong>{selectedService.name}</strong><span>{selectedDate} at {selectedTime}</span><span>{selectedService.duration_minutes} min · {selectedService.price} DH</span></div>
+            <label>Name<input value={customer.name} onChange={e => setCustomer({ ...customer, name: e.target.value })} required /></label>
+            <label>Phone<input value={customer.phone} onChange={e => setCustomer({ ...customer, phone: e.target.value })} required /></label>
+            <label>Email <span className="optional">optional</span><input type="email" value={customer.email} onChange={e => setCustomer({ ...customer, email: e.target.value })} /></label>
+            {customization.allow_notes !== false && <label>Notes <span className="optional">optional</span><textarea rows="3" value={customer.notes} onChange={e => setCustomer({ ...customer, notes: e.target.value })} /></label>}
+            {error && <div className="error">{error}</div>}
+            <button className="button full" disabled={booking}>{booking ? 'Booking…' : 'Confirm appointment'}</button>
+            <small className="muted">No account required.</small>
+          </form> : <p className="muted">Select a service, date and available time. You won't need to create an account.</p>}
+        </>}
       </aside>
     </section>
   </main>
