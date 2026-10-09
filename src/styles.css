@@ -1,12 +1,16 @@
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#171717;background:#f7f6f3;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,calc(100% - 40px));margin:auto}.logo{font-size:22px;font-weight:850;color:#171717;text-decoration:none;letter-spacing:-.04em}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between}.nav-actions,.header-actions,.hero-actions{display:flex;align-items:center;gap:10px}.button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:#171717;color:white;padding:11px 17px;text-decoration:none;font-weight:700;min-height:42px}.button:hover{opacity:.9}.button:disabled{opacity:.5;cursor:not-allowed}.button.secondary{background:white;color:#171717;border:1px solid #ddd}.button.ghost{background:transparent;color:#555}.button.large{padding:14px 20px}.button.full{width:100%}.marketing-page{min-height:100vh}.hero{min-height:calc(100vh - 76px);display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:80px;padding-bottom:60px}.eyebrow{text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:800;color:#777}.hero h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-.055em;margin:14px 0 22px;max-width:720px}.hero p{font-size:18px;line-height:1.6;color:#626262;max-width:600px}.muted{color:#777;font-size:14px}.preview-card,.auth-card,.panel,.booking-card{background:#fff;border:1px solid #e4e2dd;border-radius:18px;box-shadow:0 15px 50px #0000000a}.preview-card{padding:26px;max-width:380px;width:100%;justify-self:end}.preview-header{display:flex;gap:14px;align-items:center;margin-bottom:26px}.preview-header>div{display:flex;flex-direction:column;gap:3px}.preview-header span:last-child{color:#777;font-size:13px}.avatar,.public-avatar{display:grid;place-items:center;border-radius:50%;background:#171717;color:white;font-weight:800}.avatar{width:48px;height:48px}.preview-service{padding:16px 0;border-top:1px solid #eee;display:flex;justify-content:space-between}.auth-page{min-height:100vh;display:grid;place-items:center;padding:30px}.auth-card{width:min(460px,100%);padding:34px}.auth-card.wide{width:min(520px,100%)}.auth-card h1{font-size:32px;letter-spacing:-.04em;margin:30px 0 7px}.auth-card>p{color:#777;margin:0 0 25px}.form-stack{display:flex;flex-direction:column;gap:16px}label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700;color:#444}input,textarea{border:1px solid #d9d7d2;border-radius:9px;background:#fff;padding:11px 12px;outline:none;color:#171717}input:focus,textarea:focus{border-color:#888;box-shadow:0 0 0 3px #00000008}small{font-weight:400;color:#777}.form-footer{text-align:center;color:#777;font-size:14px}.form-footer a{color:#171717;font-weight:700}.error,.success{padding:11px 13px;border-radius:9px;font-size:13px}.error{background:#fff0f0;color:#a52525}.success{background:#effaf2;color:#26733a}.screen-center{min-height:100vh;display:grid;place-items:center}.loading{color:#777}.dashboard-page,.public-page{min-height:100vh}.dashboard-header{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e7e5e0}.dashboard-welcome{font-size:12px;color:#888;margin-top:3px}.dashboard-layout{display:grid;grid-template-columns:190px 1fr;gap:45px;padding-top:38px;padding-bottom:80px}.sidebar{display:flex;flex-direction:column;gap:4px}.sidebar button{border:0;background:transparent;text-align:left;padding:11px 13px;border-radius:9px;color:#666;font-weight:650}.sidebar button.active{background:#e9e7e1;color:#171717}.dashboard-content{min-width:0}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.section-heading h1{font-size:36px;letter-spacing:-.045em;margin:5px 0}.section-heading p{color:#777;margin:0}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}.stat{background:#fff;border:1px solid #e4e2dd;border-radius:14px;padding:19px;min-width:0}.stat span{display:block;color:#777;font-size:12px;margin-bottom:12px}.stat strong{font-size:27px;letter-spacing:-.04em}.stat .small-value{font-size:17px;overflow:hidden;text-overflow:ellipsis;display:block}.panel{padding:25px;margin-bottom:20px}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.panel-title h2{margin:0;font-size:20px;letter-spacing:-.03em}.panel-title p{margin:6px 0 0;color:#777;font-size:14px}.appointment-list,.service-list{display:flex;flex-direction:column}.appointment,.service-row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-top:1px solid #eee}.appointment>div,.service-row>div{display:flex;flex-direction:column;gap:4px}.appointment span,.service-row span{font-size:13px;color:#777}.appointment-time{text-align:right}.empty{color:#888;font-size:14px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.wide{grid-column:1/-1}.service-add{display:grid;grid-template-columns:1.3fr .6fr .7fr auto;gap:12px;align-items:end;margin-bottom:20px}.service-row strong{font-size:15px}.text-danger{border:0;background:none;color:#a52525;padding:5px 0;text-align:right;font-size:12px}.hours-list{display:flex;flex-direction:column;gap:12px}.hours-row{display:grid;grid-template-columns:120px 45px 1fr auto 1fr;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eee}.hours-row input[type=time]{width:100%}.switch{position:relative;width:40px;height:23px}.switch input{opacity:0;width:0;height:0}.switch span{position:absolute;inset:0;background:#ccc;border-radius:20px}.switch span:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}.switch input:checked+span{background:#171717}.switch input:checked+span:before{transform:translateX(17px)}.public-nav{height:70px;display:flex;align-items:center;justify-content:space-between;color:#777;font-size:13px}.business-hero{padding:60px 0 45px;display:flex;gap:20px;align-items:center}.public-avatar{width:82px;height:82px;font-size:30px}.business-hero h1{font-size:46px;letter-spacing:-.05em;margin:0 0 8px}.business-hero p{margin:3px 0;color:#777}.public-content{display:grid;grid-template-columns:1fr 370px;gap:40px;align-items:start;padding-bottom:80px}.public-section{margin-bottom:35px}.public-section h2,.booking-card h2{font-size:22px;letter-spacing:-.03em}.public-services{display:flex;flex-direction:column;gap:10px}.public-service{border:1px solid #dedcd6;background:#fff;border-radius:13px;padding:17px;display:flex;justify-content:space-between;text-align:left}.public-service.selected{border-color:#171717;box-shadow:0 0 0 1px #171717}.public-service div{display:flex;flex-direction:column;gap:4px}.public-service span{color:#777;font-size:13px}.booking-card{padding:25px;position:sticky;top:20px}.booking-summary{display:flex;flex-direction:column;gap:4px;background:#f7f6f3;border-radius:10px;padding:14px;margin-bottom:5px}.booking-summary span{color:#777;font-size:13px}.optional{font-weight:400;color:#999}.date-row{display:flex;gap:8px;overflow:auto;padding-bottom:5px}.date-row button{min-width:62px;border:1px solid #ddd;background:#fff;border-radius:10px;padding:10px 7px;display:flex;flex-direction:column;gap:4px}.date-row button.selected,.time-grid button.selected{background:#171717;color:#fff;border-color:#171717}.date-row span{font-size:11px;color:#777}.date-row button.selected span{color:#ddd}.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.time-grid button{border:1px solid #ddd;background:#fff;border-radius:8px;padding:9px 4px}.time-grid .empty{grid-column:1/-1}.booking-box{background:#fff;border:1px solid #e4e2dd;border-radius:15px;padding:20px}
-@media(max-width:850px){.hero{grid-template-columns:1fr;gap:30px;padding-top:35px}.preview-card{justify-self:start}.dashboard-layout{grid-template-columns:1fr}.sidebar{flex-direction:row;overflow:auto}.sidebar button{white-space:nowrap}.stats-grid{grid-template-columns:1fr 1fr}.public-content{grid-template-columns:1fr}.booking-card{position:static}.service-add{grid-template-columns:1fr 1fr}.service-add .button{grid-column:1/-1}.hours-row{grid-template-columns:90px 35px 1fr auto 1fr}.business-hero{padding-top:35px}.business-hero h1{font-size:36px}}
-@media(max-width:560px){.container{width:min(100% - 24px,1120px)}.topbar{height:65px}.hero h1{font-size:44px}.hero-actions{align-items:flex-start;flex-direction:column}.dashboard-header{height:auto;padding:15px 0;gap:15px;align-items:flex-start}.header-actions{flex-wrap:wrap}.form-grid,.service-add{grid-template-columns:1fr}.wide{grid-column:auto}.hours-row{grid-template-columns:1fr 35px 1fr;gap:8px}.hours-row span{display:none}.hours-row input[type=time]:last-child{grid-column:3}.stats-grid{grid-template-columns:1fr 1fr}.auth-page{padding:15px}.auth-card{padding:25px}.time-grid{grid-template-columns:repeat(3,1fr)}}
-.public-link{color:inherit}.business-description{max-width:650px;line-height:1.55;margin-top:12px!important}
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#171717;background:#f7f6f3;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,calc(100% - 40px));margin:auto}.logo{font-size:22px;font-weight:850;color:#171717;text-decoration:none;letter-spacing:-.04em}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between}.nav-actions,.header-actions,.hero-actions{display:flex;align-items:center;gap:10px}.button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:#171717;color:white;padding:11px 17px;text-decoration:none;font-weight:700;min-height:42px}.button:hover{opacity:.9}.button:disabled{opacity:.5;cursor:not-allowed}.button.secondary{background:white;color:#171717;border:1px solid #ddd}.button.ghost{background:transparent;color:#555}.button.large{padding:14px 20px}.button.full{width:100%}.marketing-page{min-height:100vh}.hero{min-height:calc(100vh - 76px);display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:80px;padding-bottom:60px}.eyebrow{text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:800;color:#777}.hero h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-.055em;margin:14px 0 22px;max-width:720px}.hero p{font-size:18px;line-height:1.6;color:#626262;max-width:600px}.muted{color:#777;font-size:14px}.preview-card,.auth-card,.panel{background:#fff;border:1px solid #e4e2dd;border-radius:18px;box-shadow:0 15px 50px #0000000a}.preview-card{padding:26px;max-width:380px;width:100%;justify-self:end}.preview-header{display:flex;gap:14px;align-items:center;margin-bottom:26px}.preview-header>div{display:flex;flex-direction:column;gap:3px}.preview-header span:last-child{color:#777;font-size:13px}.avatar{display:grid;place-items:center;border-radius:50%;background:#171717;color:white;font-weight:800}.avatar{width:48px;height:48px}.preview-service{padding:16px 0;border-top:1px solid #eee;display:flex;justify-content:space-between}.auth-page{min-height:100vh;display:grid;place-items:center;padding:30px}.auth-card{width:min(460px,100%);padding:34px}.auth-card.wide{width:min(520px,100%)}.auth-card h1{font-size:32px;letter-spacing:-.04em;margin:30px 0 7px}.auth-card>p{color:#777;margin:0 0 25px}.form-stack{display:flex;flex-direction:column;gap:16px}label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700;color:#444}input,textarea{border:1px solid #d9d7d2;border-radius:9px;background:#fff;padding:11px 12px;outline:none;color:#171717}input:focus,textarea:focus{border-color:#888;box-shadow:0 0 0 3px #00000008}small{font-weight:400;color:#777}.form-footer{text-align:center;color:#777;font-size:14px}.form-footer a{color:#171717;font-weight:700}.error,.success{padding:11px 13px;border-radius:9px;font-size:13px}.error{background:#fff0f0;color:#a52525}.success{background:#effaf2;color:#26733a}.screen-center{min-height:100vh;display:grid;place-items:center}.loading{color:#777}.dashboard-page{min-height:100vh}.dashboard-header{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e7e5e0}.dashboard-welcome{font-size:12px;color:#888;margin-top:3px}.dashboard-layout{display:grid;grid-template-columns:190px 1fr;gap:45px;padding-top:38px;padding-bottom:80px}.sidebar{display:flex;flex-direction:column;gap:4px}.sidebar button{border:0;background:transparent;text-align:left;padding:11px 13px;border-radius:9px;color:#666;font-weight:650}.sidebar button.active{background:#e9e7e1;color:#171717}.dashboard-content{min-width:0}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.section-heading h1{font-size:36px;letter-spacing:-.045em;margin:5px 0}.section-heading p{color:#777;margin:0}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}.stat{background:#fff;border:1px solid #e4e2dd;border-radius:14px;padding:19px;min-width:0}.stat span{display:block;color:#777;font-size:12px;margin-bottom:12px}.stat strong{font-size:27px;letter-spacing:-.04em}.stat .small-value{font-size:17px;overflow:hidden;text-overflow:ellipsis;display:block}.panel{padding:25px;margin-bottom:20px}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.panel-title h2{margin:0;font-size:20px;letter-spacing:-.03em}.panel-title p{margin:6px 0 0;color:#777;font-size:14px}.appointment-list,.service-list{display:flex;flex-direction:column}.appointment,.service-row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-top:1px solid #eee}.appointment>div,.service-row>div{display:flex;flex-direction:column;gap:4px}.appointment span,.service-row span{font-size:13px;color:#777}.appointment-time{text-align:right}.empty{color:#888;font-size:14px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.wide{grid-column:1/-1}.service-add{display:grid;grid-template-columns:1.3fr .6fr .7fr auto;gap:12px;align-items:end;margin-bottom:20px}.service-row strong{font-size:15px}.text-danger{border:0;background:none;color:#a52525;padding:5px 0;text-align:right;font-size:12px}.hours-list{display:flex;flex-direction:column;gap:12px}.hours-row{display:grid;grid-template-columns:120px 45px 1fr auto 1fr;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eee}.hours-row input[type=time]{width:100%}.switch{position:relative;width:40px;height:23px}.switch input{opacity:0;width:0;height:0}.switch span{position:absolute;inset:0;background:#ccc;border-radius:20px}.switch span:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}.switch input:checked+span{background:#171717}.switch input:checked+span:before{transform:translateX(17px)}.optional{font-weight:400;color:#999}
+@media(max-width:850px){.hero{grid-template-columns:1fr;gap:30px;padding-top:35px}.preview-card{justify-self:start}.dashboard-layout{grid-template-columns:1fr}.sidebar{flex-direction:row;overflow:auto}.sidebar button{white-space:nowrap}.stats-grid{grid-template-columns:1fr 1fr}.service-add{grid-template-columns:1fr 1fr}.service-add .button{grid-column:1/-1}.hours-row{grid-template-columns:90px 35px 1fr auto 1fr}}
+@media(max-width:560px){.container{width:min(100% - 24px,1120px)}.topbar{height:65px}.hero h1{font-size:44px}.hero-actions{align-items:flex-start;flex-direction:column}.dashboard-header{height:auto;padding:15px 0;gap:15px;align-items:flex-start}.header-actions{flex-wrap:wrap}.form-grid,.service-add{grid-template-columns:1fr}.wide{grid-column:auto}.hours-row{grid-template-columns:1fr 35px 1fr;gap:8px}.hours-row span{display:none}.hours-row input[type=time]:last-child{grid-column:3}.stats-grid{grid-template-columns:1fr 1fr}.auth-page{padding:15px}.auth-card{padding:25px}}
 /* =====================================================
-   PUBLIC BARBER CUSTOMIZATION + BOOKING CONFIRMATION
+   PUBLIC BARBER PAGE
+   Structure: nav > hero (cover + card) > layout (3-step flow + sidebar)
+   Theme tokens are injected inline by PublicBarber.jsx (--public-*).
+   Page styles: minimal, modern, classic, elegant. Button styles: rounded, soft, square, pill.
    ===================================================== */
 .public-page{
   --public-primary:#171717;
+  --public-on-primary:#fff;
+  --public-accent:#171717;
   --public-secondary:#e9e7e1;
   --public-bg:#f7f6f3;
   --public-surface:#fff;
@@ -14,119 +18,311 @@
   --public-text:#171717;
   --public-muted:#707070;
   --public-border:#e2e0db;
+
+  --pb-r-card:18px;
+  --pb-r-item:14px;
+  --pb-r-ctl:12px;
+  --pb-r-btn:12px;
+  --pb-pad:24px;
+  --pb-display:inherit;
+  --pb-h-weight:750;
+  --pb-h-track:-.03em;
+  --pb-shadow:0 1px 2px color-mix(in srgb,var(--public-text) 5%,transparent),0 18px 40px -22px color-mix(in srgb,var(--public-text) 24%,transparent);
+
   min-height:100vh;
   background:var(--public-bg);
   color:var(--public-text);
+  -webkit-font-smoothing:antialiased;
   transition:background .25s ease,color .25s ease;
 }
+.public-page.background-dark{color-scheme:dark}
+.public-page.background-dark:not(.style-minimal){--pb-shadow:0 22px 50px -24px rgba(0,0,0,.85)}
+.public-page :focus-visible{outline:2px solid var(--public-accent);outline-offset:2px}
+.public-page h1,.public-page h2{font-family:var(--pb-display);font-weight:var(--pb-h-weight);letter-spacing:var(--pb-h-track);color:var(--public-text);margin:0}
 .public-page .logo{color:var(--public-text)}
-.public-page .public-nav{color:var(--public-muted);border-bottom:1px solid transparent}
-.public-page .public-cover{height:220px;margin-bottom:-130px;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:.9}
-.public-page .business-hero{position:relative;z-index:1;padding-top:60px}
-.public-page .business-hero h1{color:var(--public-text)}
-.public-avatar{background:var(--public-primary);color:#fff;box-shadow:0 8px 24px color-mix(in srgb,var(--public-primary) 18%,transparent)}
-.public-avatar-image{object-fit:cover;background:var(--public-secondary);border:3px solid var(--public-surface)}
-.public-eyebrow{display:block;text-transform:uppercase;letter-spacing:.11em;font-size:11px;font-weight:800;color:var(--public-primary);margin-bottom:7px}
-.public-page .business-meta,.public-page .business-description,.public-page .public-link{color:var(--public-muted)}
-.public-page .public-link{text-decoration:none}
-.public-page .public-link:hover{color:var(--public-primary)}
-.public-section-heading{margin-bottom:17px}
-.public-section-heading h2{margin:0;color:var(--public-text)}
-.public-page .public-services{gap:12px}
-.public-page .public-service{border-color:var(--public-border);background:var(--public-surface);color:var(--public-text);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease,background .18s ease}
-.public-page .public-service:hover{border-color:var(--public-primary);transform:translateY(-1px)}
-.public-page .public-service.selected{border-color:var(--public-primary);box-shadow:0 0 0 1px var(--public-primary);background:var(--public-soft)}
-.public-page .public-service span,.public-page .date-row span,.public-page .booking-summary span,.public-page .optional{color:var(--public-muted)}
-.public-page .booking-box,.public-page .booking-card{background:var(--public-surface);border-color:var(--public-border);color:var(--public-text)}
-.public-page .booking-card{box-shadow:0 18px 55px color-mix(in srgb,var(--public-primary) 8%,transparent)}
-.public-page .booking-summary{background:var(--public-soft);color:var(--public-text)}
-.public-page input,.public-page textarea{background:var(--public-surface);color:var(--public-text);border-color:var(--public-border)}
-.public-page input:focus,.public-page textarea:focus{border-color:var(--public-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--public-primary) 12%,transparent)}
-.public-page .date-row button,.public-page .time-grid button{border-color:var(--public-border);background:var(--public-surface);color:var(--public-text)}
-.public-page .date-row button:hover,.public-page .time-grid button:hover{border-color:var(--public-primary)}
-.public-page .date-row button.selected,.public-page .time-grid button.selected{background:var(--public-primary);border-color:var(--public-primary);color:#fff}
-.public-page .date-row button.selected span{color:#eee}
-.public-page .button{background:var(--public-primary);color:#fff}
-.public-page .button.secondary{background:var(--public-secondary);color:var(--public-text);border-color:transparent}
+.public-page .pb-icon{flex:none}
 
-/* Background choices */
-.public-page.background-warm{background:#f6f0e8}
-.public-page.background-cool{background:#f1f4f7}
-.public-page.background-dark{background:#151515}
-.public-page.background-dark .public-nav{border-bottom-color:#292929}
-.public-page.background-dark .public-service,.public-page.background-dark .booking-box,.public-page.background-dark .booking-card{box-shadow:0 18px 55px #0008}
+/* ---------- shared controls ---------- */
+.public-page .button{background:var(--public-primary);color:var(--public-on-primary);border:1px solid var(--public-primary);border-radius:var(--pb-r-btn);min-height:48px;gap:8px;transition:opacity .15s ease,transform .15s ease,background .15s ease}
+.public-page .button:hover{opacity:.92}
+.public-page .button:active{transform:translateY(1px)}
+.public-page .button.secondary{background:transparent;color:var(--public-text);border-color:var(--public-border)}
+.public-page .button.secondary:hover{background:var(--public-soft);opacity:1}
+.public-page .error{background:color-mix(in srgb,#e5484d 10%,var(--public-surface));color:#b42323;border:1px solid color-mix(in srgb,#e5484d 30%,transparent)}
+.public-page.background-dark .error{color:#ff9b9b}
+.public-page small{color:var(--public-muted)}
+.public-page .optional{color:var(--public-muted);font-weight:500}
 
-/* Page styles are deliberately different, but keep the same booking flow. */
-.public-page.style-minimal .business-hero{padding-bottom:45px}
-.public-page.style-minimal .public-section h2{font-weight:700}
-.public-page.style-minimal .public-service{box-shadow:none}
+/* ---------- nav ---------- */
+.public-page .pb-nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.public-page .pb-nav-tag{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--public-muted)}
 
-.public-page.style-modern .business-hero{padding-top:72px;padding-bottom:55px}
-.public-page.style-modern .business-hero-content{max-width:720px}
-.public-page.style-modern .public-service{border-radius:18px;padding:20px 19px;box-shadow:0 8px 25px color-mix(in srgb,var(--public-primary) 6%,transparent)}
-.public-page.style-modern .booking-box,.public-page.style-modern .booking-card{border-radius:22px}
-.public-page.style-modern .public-section h2,.public-page.style-modern .booking-card h2{font-size:24px}
+/* ---------- hero ---------- */
+.public-page .pb-hero{position:relative;padding-bottom:28px}
+.public-page .pb-cover{
+  height:210px;border-radius:var(--pb-r-card);position:relative;overflow:hidden;
+  background-color:var(--public-primary);
+  background-image:linear-gradient(135deg,var(--public-primary),color-mix(in srgb,var(--public-primary) 50%,var(--public-secondary)));
+  background-size:cover;background-position:center;background-repeat:no-repeat
+}
+.public-page .pb-cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% -10%,rgba(255,255,255,.2),transparent 55%),linear-gradient(to top,rgba(0,0,0,.2),transparent 55%)}
+.public-page .pb-hero-card{
+  position:relative;z-index:1;margin:-72px 24px 0;padding:24px;
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center;
+  background:var(--public-surface);border:1px solid var(--public-border);border-radius:var(--pb-r-card);box-shadow:var(--pb-shadow)
+}
+.public-page .pb-avatar{
+  width:96px;height:96px;border-radius:50%;display:grid;place-items:center;object-fit:cover;
+  background:var(--public-primary);color:var(--public-on-primary);font-size:36px;font-weight:800;
+  border:4px solid var(--public-surface);box-shadow:0 0 0 1px var(--public-border)
+}
+img.pb-avatar{background:var(--public-secondary)}
+.public-page .pb-hero-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:8px}
+.public-page .pb-eyebrow{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:800;color:var(--public-accent)}
+.public-page .pb-hero-top .pb-eyebrow{display:inline}
+.public-page .pb-status{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:999px;background:var(--public-soft);color:var(--public-muted);font-size:12px;font-weight:650}
+.public-page .pb-status i{width:7px;height:7px;border-radius:50%;background:var(--public-muted)}
+.public-page .pb-status.is-open{color:#1d8a4e;background:color-mix(in srgb,#1f9d55 12%,var(--public-surface))}
+.public-page .pb-status.is-open i{background:#1f9d55;box-shadow:0 0 0 3px color-mix(in srgb,#1f9d55 25%,transparent)}
+.public-page.background-dark .pb-status.is-open{color:#5fd391}
+.public-page .pb-hero h1{font-size:clamp(30px,4.4vw,44px);line-height:1.05}
+.public-page .pb-facts{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--public-muted);font-size:14px}
+.public-page .pb-facts li{display:inline-flex;align-items:center;gap:7px}
+.public-page .pb-facts a{color:inherit;text-decoration:none}
+.public-page .pb-facts a:hover{color:var(--public-accent);text-decoration:underline}
+.public-page .pb-description{margin:14px 0 0;max-width:620px;line-height:1.6;color:var(--public-muted);font-size:15px}
+.public-page .pb-hero-actions{display:flex;flex-direction:column;gap:8px;min-width:150px}
 
-.public-page.style-classic .public-nav{border-bottom-color:var(--public-border)}
-.public-page.style-classic .business-hero{padding-top:48px;padding-bottom:42px}
-.public-page.style-classic .business-hero h1{font-family:Georgia,serif;font-weight:500;letter-spacing:-.035em}
-.public-page.style-classic .public-section h2,.public-page.style-classic .booking-card h2{font-family:Georgia,serif;font-weight:500}
-.public-page.style-classic .public-service{border-radius:4px}
-.public-page.style-classic .booking-box,.public-page.style-classic .booking-card{border-radius:5px}
-.public-page.style-classic .public-eyebrow{letter-spacing:.16em}
+/* ---------- layout ---------- */
+.public-page .pb-layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:28px;align-items:start;padding-bottom:56px}
+.public-page .pb-flow{display:flex;flex-direction:column;gap:16px;min-width:0}
+.public-page .pb-aside{position:sticky;top:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.public-page .pb-card{background:var(--public-surface);border:1px solid var(--public-border);border-radius:var(--pb-r-card);box-shadow:var(--pb-shadow);padding:var(--pb-pad)}
+.public-page .pb-step{scroll-margin-top:16px;transition:opacity .2s ease,border-color .2s ease}
+.public-page .pb-step.is-locked{opacity:.55;box-shadow:none}
+.public-page .pb-step-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.public-page .pb-step-head h2{font-size:19px}
+.public-page .pb-step-head p{margin:3px 0 0;font-size:13px;color:var(--public-muted)}
+.public-page .pb-step-num{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:var(--public-soft);color:var(--public-muted);border:1px solid var(--public-border);transition:background .2s ease,color .2s ease,border-color .2s ease}
+.public-page .pb-step.is-active .pb-step-num{border-color:var(--public-primary);color:var(--public-text);background:var(--public-surface);box-shadow:0 0 0 4px color-mix(in srgb,var(--public-primary) 12%,transparent)}
+.public-page .pb-step.is-done .pb-step-num{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
+.public-page .pb-locked-note,.public-page .pb-empty{margin:0;padding:14px 16px;border:1px dashed var(--public-border);border-radius:var(--pb-r-item);color:var(--public-muted);font-size:14px;line-height:1.5}
+.public-page .pb-empty{margin-top:14px}
 
-.public-page.style-elegant .public-nav{border-bottom-color:color-mix(in srgb,var(--public-primary) 15%,transparent)}
-.public-page.style-elegant .business-hero{padding-top:78px;padding-bottom:62px}
-.public-page.style-elegant .business-hero h1{font-family:Georgia,serif;font-weight:500;letter-spacing:-.045em}
-.public-page.style-elegant .public-section h2,.public-page.style-elegant .booking-card h2{font-family:Georgia,serif;font-weight:500}
-.public-page.style-elegant .public-service{border-color:transparent;border-bottom:1px solid var(--public-border);border-radius:0;background:transparent;padding-left:5px;padding-right:5px}
-.public-page.style-elegant .public-service.selected{background:var(--public-soft);border:1px solid var(--public-primary);border-radius:10px}
-.public-page.style-elegant .booking-box,.public-page.style-elegant .booking-card{border-radius:20px;box-shadow:0 20px 60px color-mix(in srgb,var(--public-primary) 10%,transparent)}
+/* ---------- services ---------- */
+.public-page .pb-services{display:grid;gap:10px}
+.public-page .pb-service{
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:14px;width:100%;text-align:left;
+  padding:16px 18px;background:var(--public-surface);color:var(--public-text);border:1px solid var(--public-border);border-radius:var(--pb-r-item)
+}
+.public-page .pb-service:hover{border-color:var(--public-primary)}
+.public-page .pb-service-name{display:block;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.public-page .pb-service-meta{display:inline-flex;align-items:center;gap:6px;margin-top:4px;color:var(--public-muted);font-size:13px}
+.public-page .pb-service-price{font-size:16px;font-weight:800;white-space:nowrap}
+.public-page .pb-service-leader{display:none}
+.public-page .pb-service-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--public-border);display:grid;place-items:center;color:transparent;transition:background .15s ease,border-color .15s ease}
+.public-page .pb-service-check .pb-icon{width:13px;height:13px}
+.public-page .pb-service.selected{border-color:var(--public-primary);background:var(--public-soft);box-shadow:0 0 0 1px var(--public-primary)}
+.public-page .pb-service.selected .pb-service-check{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
 
-/* Button shape choices */
-.public-page.button-rounded .button,.public-page.button-rounded .date-row button,.public-page.button-rounded .time-grid button{border-radius:12px}
-.public-page.button-soft .button,.public-page.button-soft .date-row button,.public-page.button-soft .time-grid button{border-radius:8px}
-.public-page.button-square .button,.public-page.button-square .date-row button,.public-page.button-square .time-grid button{border-radius:3px}
-.public-page.button-square .public-service{border-radius:3px}
+/* ---------- dates & times ---------- */
+.public-page .pb-dates{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -2px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.public-page .pb-date{
+  flex:none;width:66px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;
+  background:var(--public-surface);color:var(--public-text);border:1px solid var(--public-border);border-radius:var(--pb-r-btn)
+}
+.public-page .pb-date small{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--public-muted)}
+.public-page .pb-date strong{font-size:21px;line-height:1.15}
+.public-page .pb-date em{font-style:normal;font-size:11px;color:var(--public-muted)}
+.public-page .pb-date:hover:not(:disabled){border-color:var(--public-primary)}
+.public-page .pb-date.selected{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
+.public-page .pb-date.selected small,.public-page .pb-date.selected em{color:inherit;opacity:.8}
+.public-page .pb-date:disabled{opacity:.38;cursor:not-allowed;background:var(--public-soft)}
+.public-page .pb-subhead{margin:10px 0 16px;font-size:15px;font-weight:700}
+.public-page .pb-slot-group+.pb-slot-group{margin-top:18px}
+.public-page .pb-slot-label{margin:0 0 10px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--public-muted)}
+.public-page .pb-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.public-page .pb-slot{padding:12px 6px;background:var(--public-surface);color:var(--public-text);border:1px solid var(--public-border);border-radius:var(--pb-r-btn);font-weight:650;font-variant-numeric:tabular-nums}
+.public-page .pb-slot:hover{border-color:var(--public-primary)}
+.public-page .pb-slot.selected{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
 
-/* Restrained motion */
-.effects-on .business-hero{animation:publicEnter .45s ease both}
-.effects-on .public-main .public-section{animation:publicEnter .5s ease both}
-.effects-on .booking-card{animation:publicEnter .55s ease both}
-.effects-on .public-service,.effects-on .date-row button,.effects-on .time-grid button{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
-.effects-on .public-service:hover,.effects-on .date-row button:hover,.effects-on .time-grid button:hover{transform:translateY(-1px)}
-.effects-off *{animation:none!important;transition:none!important}
-@keyframes publicEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ---------- form ---------- */
+.public-page .pb-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.public-page .pb-form .full{grid-column:1/-1}
+.public-page .pb-field{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700;color:var(--public-text)}
+.public-page .pb-field input,.public-page .pb-field textarea{
+  width:100%;min-height:48px;padding:12px 14px;font-size:16px;font-weight:500;resize:vertical;
+  background:var(--public-surface);color:var(--public-text);border:1px solid var(--public-border);border-radius:var(--pb-r-ctl)
+}
+.public-page .pb-field input:focus,.public-page .pb-field textarea:focus{border-color:var(--public-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--public-primary) 14%,transparent)}
+.public-page .pb-field input::placeholder,.public-page .pb-field textarea::placeholder{color:var(--public-muted);opacity:.7}
+.public-page .pb-form-foot{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.public-page .pb-form-foot .button{min-height:52px;font-size:16px}
 
-/* Confirmation */
-.confirmation-card{animation:confirmationIn .4s ease both}
-.confirmation-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--public-secondary);color:var(--public-primary);margin-bottom:20px;animation:confirmationPop .45s cubic-bezier(.2,.9,.25,1.2) both}
-.confirmation-icon span{font-size:28px;font-weight:900;line-height:1}
-.confirmation-card h2{margin:0 0 8px}
-.confirmation-lead{margin:0 0 20px;color:var(--public-muted);font-size:15px}
-.confirmation-details{display:flex;flex-direction:column;border:1px solid var(--public-border);border-radius:12px;overflow:hidden;margin-bottom:15px}
-.confirmation-details div{display:flex;justify-content:space-between;gap:20px;padding:12px 13px;border-bottom:1px solid var(--public-border)}
-.confirmation-details div:last-child{border-bottom:0}
-.confirmation-details span{color:var(--public-muted);font-size:12px}
-.confirmation-details strong{text-align:right;font-size:13px}
-.confirmation-note{font-size:12px;line-height:1.5;color:var(--public-muted);margin:0 0 18px}
-@keyframes confirmationIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes confirmationPop{0%{opacity:0;transform:scale(.65) rotate(-8deg)}70%{transform:scale(1.08) rotate(2deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+/* ---------- sidebar ---------- */
+.public-page .pb-summary h2,.public-page .pb-hours h2{font-size:20px}
+.public-page .pb-summary .pb-eyebrow,.public-page .pb-hours .pb-eyebrow{margin-bottom:12px}
+.public-page .pb-summary-list{margin:0}
+.public-page .pb-summary-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dashed var(--public-border);font-size:14px}
+.public-page .pb-summary-row dt{color:var(--public-muted)}
+.public-page .pb-summary-row dd{margin:0;font-weight:650;text-align:right}
+.public-page .pb-pending{color:var(--public-muted);font-weight:500}
+.public-page .pb-summary-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px;font-weight:700}
+.public-page .pb-summary-total strong{font-size:26px;letter-spacing:-.03em}
+.public-page .pb-summary-empty{margin:0;color:var(--public-muted);font-size:14px;line-height:1.5}
+.public-page .pb-assurance{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--public-border);display:grid;gap:8px;font-size:13px;color:var(--public-muted)}
+.public-page .pb-assurance li{display:flex;align-items:center;gap:8px}
+.public-page .pb-assurance .pb-icon{color:#1f9d55;width:15px;height:15px}
+.public-page .pb-hours-list{list-style:none;margin:0;padding:0}
+.public-page .pb-hours-list li{display:flex;justify-content:space-between;gap:12px;padding:9px 10px;margin:0 -10px;border-radius:8px;font-size:14px;font-variant-numeric:tabular-nums}
+.public-page .pb-hours-list li.is-closed{color:var(--public-muted)}
+.public-page .pb-hours-list li.is-today{background:var(--public-soft);font-weight:750}
+.public-page .pb-footer{padding:0 0 40px;text-align:center;font-size:12px;color:var(--public-muted)}
+.public-page .pb-footer a{color:inherit;font-weight:700}
 
-.public-page.background-dark .confirmation-details{border-color:#3a3a3a}
-.public-page.background-dark .confirmation-details div{border-color:#3a3a3a}
-.public-page.background-dark .confirmation-icon{color:var(--public-text)}
+/* ---------- confirmation ---------- */
+.public-page .pb-confirm{text-align:center;padding:44px 32px}
+.public-page .pb-confirm-icon{width:68px;height:68px;margin:0 auto 20px;border-radius:50%;display:grid;place-items:center;background:var(--public-primary);color:var(--public-on-primary)}
+.public-page .pb-confirm-icon .pb-icon{width:30px;height:30px;stroke-width:2.5}
+.public-page .pb-confirm .pb-eyebrow{margin-bottom:8px}
+.public-page .pb-confirm h2{font-size:clamp(24px,4vw,32px)}
+.public-page .pb-confirm-lead{margin:10px 0 0;color:var(--public-muted)}
+.public-page .pb-confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:26px 0 16px;text-align:left;background:var(--public-border);border:1px solid var(--public-border);border-radius:var(--pb-r-item);overflow:hidden}
+.public-page .pb-confirm-grid>div{display:flex;flex-direction:column;gap:4px;padding:15px 17px;background:var(--public-surface)}
+.public-page .pb-confirm-grid .wide-cell{grid-column:1/-1}
+.public-page .pb-confirm-grid span{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--public-muted)}
+.public-page .pb-confirm-grid strong{font-size:15px}
+.public-page .pb-note{margin:0 0 22px;font-size:13px;color:var(--public-muted)}
+.public-page .pb-confirm-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.public-page .pb-confirm-actions .button{min-width:170px}
 
-@media(max-width:850px){
-  .public-page .public-cover{height:180px;margin-bottom:-105px}
-  .public-page.style-modern .business-hero,.public-page.style-elegant .business-hero{padding-top:55px}
+/* =====================================================
+   PAGE STYLES
+   ===================================================== */
+
+/* Minimal: flat, hairline borders, no shadows */
+.public-page.style-minimal{--pb-r-card:16px;--pb-r-item:12px;--pb-shadow:none}
+.public-page.style-minimal .pb-cover{height:170px}
+.public-page.style-minimal .pb-hero-card{margin-top:-56px}
+
+/* Modern: big radii, soft depth, two-column service cards */
+.public-page.style-modern{--pb-r-card:28px;--pb-r-item:20px;--pb-r-ctl:16px;--pb-h-weight:800;--pb-h-track:-.045em;--pb-pad:28px}
+.public-page.style-modern .pb-cover{height:250px}
+.public-page.style-modern .pb-hero-card{margin-top:-86px;padding:28px;background:color-mix(in srgb,var(--public-surface) 86%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.public-page.style-modern .pb-eyebrow{color:var(--public-accent)}
+.public-page.style-modern .pb-hero-top .pb-eyebrow{padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--public-primary) 9%,transparent)}
+.public-page.style-modern .pb-step-num{border-radius:12px}
+.public-page.style-modern .pb-services{grid-template-columns:repeat(2,minmax(0,1fr))}
+.public-page.style-modern .pb-service{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main check" "price price";align-items:start;gap:18px 10px;padding:18px;box-shadow:0 10px 26px -18px color-mix(in srgb,var(--public-primary) 40%,transparent)}
+.public-page.style-modern .pb-service-main{grid-area:main}
+.public-page.style-modern .pb-service-check{grid-area:check}
+.public-page.style-modern .pb-service-price{grid-area:price;font-size:22px;letter-spacing:-.03em}
+.public-page.style-modern .pb-service.selected{background:color-mix(in srgb,var(--public-primary) 7%,var(--public-surface))}
+.public-page.style-modern .pb-summary-total strong{font-size:30px}
+
+/* Classic: serif, centered, double-rule frames, dotted price leaders */
+.public-page.style-classic{--pb-r-card:4px;--pb-r-item:3px;--pb-r-ctl:3px;--pb-display:Georgia,"Times New Roman",serif;--pb-h-weight:500;--pb-h-track:-.015em;--pb-shadow:none}
+.public-page.style-classic .pb-nav{border-bottom:1px solid var(--public-border);height:64px}
+.public-page.style-classic .pb-cover{height:150px;filter:saturate(.85)}
+.public-page.style-classic .pb-card,.public-page.style-classic .pb-hero-card{box-shadow:inset 0 0 0 4px var(--public-surface),inset 0 0 0 5px var(--public-border)}
+.public-page.style-classic .pb-hero-card{margin:-44px 0 0;padding:70px 28px 32px;grid-template-columns:1fr;justify-items:center;text-align:center;gap:16px}
+.public-page.style-classic .pb-avatar{margin-top:-130px;width:104px;height:104px;border-radius:4px;font-family:Georgia,serif}
+.public-page.style-classic .pb-eyebrow{letter-spacing:.2em}
+.public-page.style-classic .pb-hero h1{font-size:clamp(34px,5vw,54px)}
+.public-page.style-classic .pb-step-num{border-radius:3px;font-family:Georgia,serif}
+.public-page.style-classic .pb-service{border-width:0 0 1px;border-radius:0;background:transparent;grid-template-columns:auto minmax(20px,1fr) auto auto;padding:16px 4px;gap:12px}
+.public-page.style-classic .pb-service:hover{border-color:var(--public-border)}
+.public-page.style-classic .pb-service-leader{display:block;align-self:center;margin-top:-14px;border-bottom:2px dotted var(--public-border)}
+.public-page.style-classic .pb-service-name,.public-page.style-classic .pb-service-price{font-family:Georgia,serif;font-weight:600}
+.public-page.style-classic .pb-service.selected{background:var(--public-soft);box-shadow:none;border-bottom-color:var(--public-primary)}
+.public-page.style-classic .pb-service-check{border-radius:3px}
+.public-page.style-classic .pb-hours-list li,.public-page.style-classic .pb-summary-row{font-family:Georgia,serif}
+
+/* Elegant: airy, serif, centered, gold-leaf hairlines */
+.public-page.style-elegant{--pb-r-card:24px;--pb-r-item:0px;--pb-r-ctl:12px;--pb-display:Georgia,"Times New Roman",serif;--pb-h-weight:500;--pb-h-track:-.04em;--pb-pad:32px;--pb-shadow:0 30px 70px -40px color-mix(in srgb,var(--public-primary) 45%,transparent)}
+.public-page.style-elegant .pb-nav{border-bottom:1px solid color-mix(in srgb,var(--public-primary) 15%,transparent)}
+.public-page.style-elegant .pb-cover{height:200px}
+.public-page.style-elegant .pb-hero-card{margin:-64px 0 0;padding:0 16px;grid-template-columns:1fr;justify-items:center;text-align:center;gap:18px;background:transparent;border:0;box-shadow:none}
+.public-page.style-elegant .pb-avatar{width:112px;height:112px;border:5px solid var(--public-bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--public-primary) 40%,transparent),0 18px 40px -18px color-mix(in srgb,var(--public-primary) 60%,transparent);font-family:Georgia,serif}
+.public-page.style-elegant .pb-hero h1{font-size:clamp(36px,5.5vw,60px);line-height:1.02}
+.public-page.style-elegant .pb-hero-top{justify-content:center}
+.public-page.style-elegant .pb-eyebrow{letter-spacing:.28em}
+.public-page.style-elegant .pb-hero-top .pb-eyebrow::before,.public-page.style-elegant .pb-hero-top .pb-eyebrow::after{content:"";display:inline-block;width:26px;height:1px;background:currentColor;opacity:.45;vertical-align:middle;margin:0 12px}
+.public-page.style-elegant .pb-description{font-family:Georgia,serif;font-style:italic;font-size:17px}
+.public-page.style-elegant .pb-step-head h2,.public-page.style-elegant .pb-summary-total strong{font-family:Georgia,serif}
+.public-page.style-elegant .pb-step-head{margin-bottom:24px}
+.public-page.style-elegant .pb-services{gap:0}
+.public-page.style-elegant .pb-service{background:transparent;border-width:0 0 1px;border-radius:0;padding:20px 8px}
+.public-page.style-elegant .pb-service:hover{border-color:var(--public-primary)}
+.public-page.style-elegant .pb-service-name{font-family:Georgia,serif;font-size:18px;font-weight:500}
+.public-page.style-elegant .pb-service-price{font-family:Georgia,serif;font-size:18px;font-weight:500}
+.public-page.style-elegant .pb-service.selected{background:var(--public-soft);box-shadow:inset 3px 0 0 var(--public-primary);border-bottom-color:var(--public-border);padding-left:18px}
+.public-page.style-elegant .pb-summary .pb-eyebrow,.public-page.style-elegant .pb-hours .pb-eyebrow{letter-spacing:.24em}
+.public-page.style-elegant .pb-confirm-icon{box-shadow:0 0 0 6px var(--public-surface),0 0 0 7px color-mix(in srgb,var(--public-primary) 40%,transparent)}
+
+/* =====================================================
+   BUTTON STYLES (buttons, date and time chips)
+   ===================================================== */
+.public-page.button-rounded{--pb-r-btn:12px}
+.public-page.button-soft{--pb-r-btn:8px}
+.public-page.button-square{--pb-r-btn:2px;--pb-r-item:2px}
+.public-page.button-pill{--pb-r-btn:999px}
+.public-page.button-pill .pb-date{border-radius:34px}
+
+/* =====================================================
+   MOTION
+   ===================================================== */
+.effects-on .pb-hero-card{animation:pbEnter .5s ease both}
+.effects-on .pb-flow>.pb-card{animation:pbEnter .55s ease both}
+.effects-on .pb-flow>.pb-card:nth-child(2){animation-delay:.06s}
+.effects-on .pb-flow>.pb-card:nth-child(3){animation-delay:.12s}
+.effects-on .pb-aside>.pb-card{animation:pbEnter .6s ease .1s both}
+.effects-on .pb-service,.effects-on .pb-date,.effects-on .pb-slot{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
+.effects-on .pb-service:hover,.effects-on .pb-slot:hover,.effects-on .pb-date:hover:not(:disabled){transform:translateY(-2px)}
+.effects-on .pb-confirm-icon{animation:pbPop .5s cubic-bezier(.2,.9,.25,1.2) both}
+.effects-off *,.effects-off *::before,.effects-off *::after{animation:none!important;transition:none!important}
+@keyframes pbEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pbPop{0%{opacity:0;transform:scale(.6) rotate(-8deg)}70%{transform:scale(1.08) rotate(2deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@media (prefers-reduced-motion:reduce){.public-page *{animation:none!important;transition:none!important}}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media(max-width:900px){
+  .public-page .pb-layout{grid-template-columns:1fr}
+  .public-page .pb-aside{position:static}
+  .public-page .pb-hero-card{grid-template-columns:auto minmax(0,1fr);margin-left:12px;margin-right:12px}
+  .public-page .pb-hero-actions{grid-column:1/-1;flex-direction:row}
+  .public-page .pb-hero-actions .button{flex:1}
+  .public-page.style-elegant .pb-hero-card,.public-page.style-classic .pb-hero-card{margin-left:0;margin-right:0}
+  .public-page.style-classic .pb-hero-card,.public-page.style-elegant .pb-hero-card{grid-template-columns:1fr}
+  .public-page.style-modern .pb-cover{height:210px}
 }
 @media(max-width:560px){
-  .public-page .public-cover{height:145px;margin-bottom:-80px}
-  .public-page .business-hero{padding-top:35px;align-items:flex-start}
-  .public-page .business-hero h1{font-size:36px}
-  .confirmation-details div{align-items:flex-start;flex-direction:column;gap:3px}
-  .confirmation-details strong{text-align:left}
+  .public-page{--pb-pad:18px}
+  .public-page.style-modern,.public-page.style-elegant{--pb-pad:20px}
+  .public-page .pb-cover,.public-page.style-minimal .pb-cover,.public-page.style-elegant .pb-cover{height:140px}
+  .public-page.style-modern .pb-cover{height:170px}
+  .public-page.style-classic .pb-cover{height:120px}
+  .public-page .pb-hero-card,.public-page.style-minimal .pb-hero-card,.public-page.style-modern .pb-hero-card{grid-template-columns:1fr;margin:-48px 0 0;padding:0 18px 20px;gap:14px}
+  .public-page .pb-hero-card,.public-page.style-minimal .pb-hero-card,.public-page.style-modern .pb-hero-card{background:var(--public-surface);border:1px solid var(--public-border)}
+  .public-page .pb-avatar{width:76px;height:76px;font-size:28px;margin-top:-38px}
+  .public-page.style-classic .pb-hero-card{padding:56px 18px 22px;margin-top:-36px}
+  .public-page.style-classic .pb-avatar{margin-top:-104px;width:84px;height:84px}
+  .public-page.style-elegant .pb-hero-card{background:transparent;border:0;margin-top:-52px;padding:0 4px}
+  .public-page.style-elegant .pb-avatar{width:96px;height:96px;margin-top:0}
+  .public-page.style-elegant .pb-hero-top .pb-eyebrow::before,.public-page.style-elegant .pb-hero-top .pb-eyebrow::after{width:14px;margin:0 8px}
+  .public-page .pb-hero-actions{flex-direction:column}
+  .public-page .pb-service{padding:14px}
+  .public-page.style-modern .pb-services{grid-template-columns:1fr}
+  .public-page.style-modern .pb-service{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"main price check";align-items:center}
+  .public-page.style-classic .pb-service{grid-template-columns:auto minmax(12px,1fr) auto auto}
+  .public-page .pb-form{grid-template-columns:1fr}
+  .public-page .pb-slots{grid-template-columns:repeat(3,1fr)}
+  .public-page .pb-date{width:60px}
+  .public-page .pb-confirm{padding:32px 18px}
+  .public-page .pb-confirm-grid{grid-template-columns:1fr}
+  .public-page .pb-confirm-actions .button{width:100%}
 }
 
 
