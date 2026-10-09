@@ -270,6 +270,26 @@ img.pb-avatar{background:var(--public-secondary)}
 .public-page.button-pill .pb-date{border-radius:34px}
 
 /* =====================================================
+   SECONDARY COLOR (fills, highlights, hover tints)
+   ===================================================== */
+.public-page{--pb-sec-fill:var(--public-secondary);--pb-sec-ink:var(--public-on-secondary,var(--public-text));--pb-sec-tint:color-mix(in srgb,var(--public-secondary) 38%,var(--public-surface))}
+.public-page.background-dark{--pb-sec-fill:color-mix(in srgb,var(--public-secondary) 24%,var(--public-surface));--pb-sec-ink:var(--public-text);--pb-sec-tint:color-mix(in srgb,var(--public-secondary) 14%,var(--public-surface))}
+.public-page .pb-avatar{border-color:var(--pb-sec-fill)}
+.public-page .pb-hero-top .pb-eyebrow{padding:4px 11px;border-radius:999px;background:var(--pb-sec-fill);color:var(--pb-sec-ink)}
+.public-page .button.secondary:hover{background:var(--pb-sec-fill);color:var(--pb-sec-ink);border-color:var(--pb-sec-fill)}
+.public-page .pb-step.is-active .pb-step-num{box-shadow:0 0 0 5px var(--pb-sec-fill)}
+.public-page .pb-locked-note,.public-page .pb-empty{background:var(--pb-sec-tint);border-color:color-mix(in srgb,var(--public-secondary) 70%,var(--public-border))}
+.public-page .pb-service:hover,.public-page .pb-date:hover:not(:disabled),.public-page .pb-slot:hover{background:var(--pb-sec-tint)}
+.public-page .pb-service.selected,.public-page.style-modern .pb-service.selected,.public-page.style-classic .pb-service.selected,.public-page.style-elegant .pb-service.selected{background:var(--pb-sec-fill);color:var(--pb-sec-ink)}
+.public-page .pb-service.selected .pb-service-meta{color:inherit;opacity:.75}
+.public-page .pb-summary-total{margin-top:16px;padding:14px 16px;border-radius:var(--pb-r-item);background:var(--pb-sec-fill);color:var(--pb-sec-ink)}
+.public-page .pb-hours-list li.is-today{background:var(--pb-sec-fill);color:var(--pb-sec-ink)}
+.public-page .pb-confirm-icon{box-shadow:0 0 0 9px var(--pb-sec-fill)}
+.public-page.style-elegant .pb-confirm-icon{box-shadow:0 0 0 6px var(--pb-sec-fill),0 0 0 7px color-mix(in srgb,var(--public-primary) 40%,transparent)}
+.public-page .pb-confirm-grid>div:first-child,.public-page .pb-confirm-grid>div:nth-child(2){background:var(--pb-sec-tint)}
+.public-page .pb-status:not(.is-open){background:var(--pb-sec-fill);color:var(--pb-sec-ink)}
+
+/* =====================================================
    MOTION
    ===================================================== */
 .effects-on .pb-hero-card{animation:pbEnter .5s ease both}

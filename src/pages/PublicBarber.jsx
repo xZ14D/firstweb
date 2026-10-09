@@ -183,11 +183,13 @@ export default function PublicBarber() {
   // If the brand colour would disappear on the page surface (e.g. near-black on dark mode), fall back to the text colour.
   const brand = contrast(chosenPrimary, background.surface) >= 1.25 ? chosenPrimary : background.text
   const accent = contrast(brand, background.surface) >= 3 ? brand : background.text
+  const secondary = customization.secondary_color || DEFAULT_CUSTOMIZATION.secondary_color
   const pageVars = {
     '--public-primary': brand,
+    '--public-on-secondary': readableOn(secondary),
     '--public-on-primary': readableOn(brand),
     '--public-accent': accent,
-    '--public-secondary': customization.secondary_color || DEFAULT_CUSTOMIZATION.secondary_color,
+    '--public-secondary': secondary,
     '--public-bg': background.bg,
     '--public-surface': background.surface,
     '--public-soft': background.soft,
