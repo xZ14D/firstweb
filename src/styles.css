@@ -33,7 +33,6 @@
   background:var(--public-bg);
   color:var(--public-text);
   -webkit-font-smoothing:antialiased;
-  transition:background .25s ease,color .25s ease;
 }
 .public-page.background-dark{color-scheme:dark}
 .public-page.background-dark:not(.style-minimal){--pb-shadow:0 22px 50px -24px rgba(0,0,0,.85)}
@@ -43,7 +42,7 @@
 .public-page .pb-icon{flex:none}
 
 /* ---------- shared controls ---------- */
-.public-page .button{background:var(--public-primary);color:var(--public-on-primary);border:1px solid var(--public-primary);border-radius:var(--pb-r-btn);min-height:48px;gap:8px;transition:opacity .15s ease,transform .15s ease,background .15s ease}
+.public-page .button{background:var(--public-primary);color:var(--public-on-primary);border:1px solid var(--public-primary);border-radius:var(--pb-r-btn);min-height:48px;gap:8px;}
 .public-page .button:hover{opacity:.92}
 .public-page .button:active{transform:translateY(1px)}
 .public-page .button.secondary{background:transparent;color:var(--public-text);border-color:var(--public-border)}
@@ -98,12 +97,12 @@ img.pb-avatar{background:var(--public-secondary)}
 .public-page .pb-flow{display:flex;flex-direction:column;gap:16px;min-width:0}
 .public-page .pb-aside{position:sticky;top:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
 .public-page .pb-card{background:var(--public-surface);border:1px solid var(--public-border);border-radius:var(--pb-r-card);box-shadow:var(--pb-shadow);padding:var(--pb-pad)}
-.public-page .pb-step{scroll-margin-top:16px;transition:opacity .2s ease,border-color .2s ease}
+.public-page .pb-step{scroll-margin-top:16px}
 .public-page .pb-step.is-locked{opacity:.55;box-shadow:none}
 .public-page .pb-step-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .public-page .pb-step-head h2{font-size:19px}
 .public-page .pb-step-head p{margin:3px 0 0;font-size:13px;color:var(--public-muted)}
-.public-page .pb-step-num{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:var(--public-soft);color:var(--public-muted);border:1px solid var(--public-border);transition:background .2s ease,color .2s ease,border-color .2s ease}
+.public-page .pb-step-num{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:var(--public-soft);color:var(--public-muted);border:1px solid var(--public-border);}
 .public-page .pb-step.is-active .pb-step-num{border-color:var(--public-primary);color:var(--public-text);background:var(--public-surface);box-shadow:0 0 0 4px color-mix(in srgb,var(--public-primary) 12%,transparent)}
 .public-page .pb-step.is-done .pb-step-num{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
 .public-page .pb-locked-note,.public-page .pb-empty{margin:0;padding:14px 16px;border:1px dashed var(--public-border);border-radius:var(--pb-r-item);color:var(--public-muted);font-size:14px;line-height:1.5}
@@ -120,7 +119,7 @@ img.pb-avatar{background:var(--public-secondary)}
 .public-page .pb-service-meta{display:inline-flex;align-items:center;gap:6px;margin-top:4px;color:var(--public-muted);font-size:13px}
 .public-page .pb-service-price{font-size:16px;font-weight:800;white-space:nowrap}
 .public-page .pb-service-leader{display:none}
-.public-page .pb-service-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--public-border);display:grid;place-items:center;color:transparent;transition:background .15s ease,border-color .15s ease}
+.public-page .pb-service-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--public-border);display:grid;place-items:center;color:transparent;}
 .public-page .pb-service-check .pb-icon{width:13px;height:13px}
 .public-page .pb-service.selected{border-color:var(--public-primary);background:var(--public-soft);box-shadow:0 0 0 1px var(--public-primary)}
 .public-page .pb-service.selected .pb-service-check{background:var(--public-primary);border-color:var(--public-primary);color:var(--public-on-primary)}
@@ -291,17 +290,83 @@ img.pb-avatar{background:var(--public-secondary)}
 
 /* =====================================================
    MOTION
+   Everything below only applies when "subtle effects" is on (.effects-on).
+   With effects off, every state change is instant (see .effects-off).
    ===================================================== */
-.effects-on .pb-hero-card{animation:pbEnter .5s ease both}
-.effects-on .pb-flow>.pb-card{animation:pbEnter .55s ease both}
-.effects-on .pb-flow>.pb-card:nth-child(2){animation-delay:.06s}
-.effects-on .pb-flow>.pb-card:nth-child(3){animation-delay:.12s}
-.effects-on .pb-aside>.pb-card{animation:pbEnter .6s ease .1s both}
-.effects-on .pb-service,.effects-on .pb-date,.effects-on .pb-slot{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
-.effects-on .pb-service:hover,.effects-on .pb-slot:hover,.effects-on .pb-date:hover:not(:disabled){transform:translateY(-2px)}
-.effects-on .pb-confirm-icon{animation:pbPop .5s cubic-bezier(.2,.9,.25,1.2) both}
-.effects-off *,.effects-off *::before,.effects-off *::after{animation:none!important;transition:none!important}
+.public-page.effects-on{--pb-ease:cubic-bezier(.22,.8,.24,1);--pb-dur:.24s}
+
+/* smooth colour / size / shadow changes on everything interactive */
+.effects-on .button,
+.effects-on .pb-service,.effects-on .pb-date,.effects-on .pb-slot,
+.effects-on .pb-field input,.effects-on .pb-field textarea,
+.effects-on .pb-step-num,.effects-on .pb-service-check,.effects-on .pb-service-check .pb-icon,
+.effects-on .pb-hours-list li,.effects-on .pb-status,.effects-on .pb-avatar,
+.effects-on .pb-facts a,.effects-on .pb-footer a,.effects-on .pb-nav .logo{
+  transition:background-color var(--pb-dur) var(--pb-ease),border-color var(--pb-dur) var(--pb-ease),color var(--pb-dur) var(--pb-ease),box-shadow var(--pb-dur) var(--pb-ease),transform var(--pb-dur) var(--pb-ease),opacity var(--pb-dur) var(--pb-ease)
+}
+.effects-on .pb-step{transition:opacity .35s var(--pb-ease),box-shadow .35s var(--pb-ease)}
+
+/* hover lift + press feedback */
+.effects-on .pb-service:hover,.effects-on .pb-slot:hover,.effects-on .pb-date:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 22px -14px color-mix(in srgb,var(--public-text) 45%,transparent)}
+.effects-on .button:hover{transform:translateY(-1px);box-shadow:0 10px 22px -12px color-mix(in srgb,var(--public-primary) 70%,transparent);opacity:1}
+.effects-on .button.secondary:hover{box-shadow:none}
+.effects-on .pb-service:active,.effects-on .pb-slot:active,.effects-on .pb-date:active:not(:disabled),.effects-on .button:active{transform:scale(.97);box-shadow:none}
+.effects-on .pb-service.selected,.effects-on .pb-slot.selected,.effects-on .pb-date.selected{transform:none}
+
+/* selected check gently pops in */
+.effects-on .pb-service-check .pb-icon{transform:scale(.4);opacity:0}
+.effects-on .pb-service.selected .pb-service-check .pb-icon{transform:scale(1);opacity:1;transition-delay:.05s}
+.effects-on .pb-step.is-done .pb-step-num .pb-icon{animation:pbPop .4s var(--pb-ease) both}
+
+/* focus glow eases in */
+.effects-on .pb-field input:focus,.effects-on .pb-field textarea:focus{transform:translateY(-1px)}
+
+/* entrances */
+.effects-on .pb-nav{animation:pbFade .5s ease both}
+.effects-on .pb-cover{animation:pbFade .7s ease both}
+.effects-on .pb-hero-card{animation:pbEnter .55s var(--pb-ease) .05s both}
+.effects-on .pb-flow>.pb-card{animation:pbEnter .55s var(--pb-ease) both}
+.effects-on .pb-flow>.pb-card:nth-child(2){animation-delay:.07s}
+.effects-on .pb-flow>.pb-card:nth-child(3){animation-delay:.14s}
+.effects-on .pb-aside>.pb-card{animation:pbEnter .6s var(--pb-ease) .12s both}
+.effects-on .pb-service{animation:pbEnter .45s var(--pb-ease) both}
+.effects-on .pb-service:nth-child(2){animation-delay:.04s}
+.effects-on .pb-service:nth-child(3){animation-delay:.08s}
+.effects-on .pb-service:nth-child(4){animation-delay:.12s}
+.effects-on .pb-service:nth-child(n+5){animation-delay:.16s}
+
+/* content that appears after a choice (dates, times, form, summary) */
+.effects-on .pb-dates,.effects-on .pb-subhead,.effects-on .pb-form,.effects-on .pb-locked-note,.effects-on .pb-empty,.effects-on .pb-summary-total,.effects-on .pb-summary-empty{animation:pbEnter .4s var(--pb-ease) both}
+.effects-on .pb-slot-group{animation:pbEnter .4s var(--pb-ease) both}
+.effects-on .pb-slot-group:nth-of-type(2){animation-delay:.06s}
+.effects-on .pb-slot-group:nth-of-type(3){animation-delay:.12s}
+.effects-on .pb-slot{animation:pbFade .35s ease both}
+.effects-on .pb-slot:nth-child(2){animation-delay:.02s}
+.effects-on .pb-slot:nth-child(3){animation-delay:.04s}
+.effects-on .pb-slot:nth-child(4){animation-delay:.06s}
+.effects-on .pb-slot:nth-child(5){animation-delay:.08s}
+.effects-on .pb-slot:nth-child(n+6){animation-delay:.1s}
+.effects-on .pb-summary-row{animation:pbFade .35s ease both}
+.effects-on .pb-summary-total strong{animation:pbTick .35s var(--pb-ease) both}
+.effects-on .error{animation:pbShake .4s ease both}
+
+/* confirmation */
+.effects-on .pb-confirm{animation:pbEnter .5s var(--pb-ease) both}
+.effects-on .pb-confirm-icon{animation:pbPop .55s cubic-bezier(.2,.9,.25,1.2) .1s both}
+.effects-on .pb-confirm-grid>div{animation:pbEnter .45s var(--pb-ease) both}
+.effects-on .pb-confirm-grid>div:nth-child(1){animation-delay:.2s}
+.effects-on .pb-confirm-grid>div:nth-child(2){animation-delay:.26s}
+.effects-on .pb-confirm-grid>div:nth-child(3){animation-delay:.32s}
+.effects-on .pb-confirm-grid>div:nth-child(4){animation-delay:.38s}
+.effects-on .pb-confirm-grid>div:nth-child(5){animation-delay:.44s}
+
+/* effects off: everything is instant */
+.public-page.effects-off,.effects-off *,.effects-off *::before,.effects-off *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+
 @keyframes pbEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pbFade{from{opacity:0}to{opacity:1}}
+@keyframes pbTick{from{opacity:0;transform:translateY(6px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes pbShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
 @keyframes pbPop{0%{opacity:0;transform:scale(.6) rotate(-8deg)}70%{transform:scale(1.08) rotate(2deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
 @media (prefers-reduced-motion:reduce){.public-page *{animation:none!important;transition:none!important}}
 

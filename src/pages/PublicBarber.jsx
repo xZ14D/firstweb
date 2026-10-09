@@ -251,9 +251,11 @@ export default function PublicBarber() {
   }, [slots])
 
   /* actions */
+  const scrollBehavior = customization.enable_effects === false ? 'auto' : 'smooth'
+
   function scrollToRef(ref) {
     if (window.innerWidth >= 900) return
-    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60)
+    setTimeout(() => ref.current?.scrollIntoView({ behavior: scrollBehavior, block: 'start' }), 60)
   }
 
   function chooseService(service) {
@@ -322,13 +324,13 @@ export default function PublicBarber() {
   }
 
   useEffect(() => {
-    if (confirmation) flowRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (confirmation) flowRef.current?.scrollIntoView({ behavior: scrollBehavior, block: 'start' })
   }, [confirmation])
 
   function bookAnother() {
     setConfirmation(null)
     setError('')
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: scrollBehavior })
   }
 
   /* render */
@@ -376,7 +378,7 @@ export default function PublicBarber() {
         </div>
 
         <div className="pb-hero-actions">
-          <a className="button" href="#pb-services" onClick={e => { e.preventDefault(); document.getElementById('pb-services')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>Book now</a>
+          <a className="button" href="#pb-services" onClick={e => { e.preventDefault(); document.getElementById('pb-services')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' }) }}>Book now</a>
           {showPhone && <a className="button secondary" href={`tel:${profile.phone}`}><Icon name="phone" /> Call</a>}
         </div>
       </div>
