@@ -721,3 +721,90 @@ img.pb-avatar{background:var(--public-secondary)}
     width:100%;
   }
 }
+
+
+/* =====================================================
+   POLISHED CLASSIC / MODERN / ELEGANT STYLES
+   Softer corners and no decorative italic/cursive typography.
+   ===================================================== */
+
+/* Keep all page typography clean and consistent. */
+.public-page.style-classic,
+.public-page.style-modern,
+.public-page.style-elegant {
+  --pb-display: inherit;
+}
+
+/* Classic: traditional layout, but with comfortably rounded edges. */
+.public-page.style-classic {
+  --pb-r-card: 18px;
+  --pb-r-item: 12px;
+  --pb-r-ctl: 10px;
+  --pb-shadow: none;
+}
+
+.public-page.style-classic .pb-avatar {
+  border-radius: 16px;
+  font-family: inherit;
+}
+
+.public-page.style-classic .pb-step-num,
+.public-page.style-classic .pb-service-check {
+  border-radius: 10px;
+}
+
+.public-page.style-classic .pb-service {
+  border-radius: 12px;
+}
+
+/* Modern: retain the larger, soft shape language consistently. */
+.public-page.style-modern {
+  --pb-r-card: 26px;
+  --pb-r-item: 18px;
+  --pb-r-ctl: 14px;
+  --pb-r-btn: 14px;
+}
+
+.public-page.style-modern .pb-step-num {
+  border-radius: 12px;
+}
+
+/* Elegant: keep the airy, refined layout without square service rows. */
+.public-page.style-elegant {
+  --pb-r-card: 24px;
+  --pb-r-item: 16px;
+  --pb-r-ctl: 14px;
+  --pb-r-btn: 14px;
+  --pb-display: inherit;
+}
+
+.public-page.style-elegant .pb-avatar {
+  border-radius: 50%;
+  font-family: inherit;
+}
+
+.public-page.style-elegant .pb-description {
+  font-family: inherit;
+  font-style: normal;
+}
+
+.public-page.style-elegant .pb-service {
+  border-width: 0 0 1px;
+  border-radius: 12px;
+}
+
+.public-page.style-elegant .pb-service.selected {
+  box-shadow: inset 3px 0 0 var(--public-primary);
+  border-radius: 12px;
+}
+
+.public-page.style-elegant .pb-step-head h2,
+.public-page.style-elegant .pb-summary-total strong,
+.public-page.style-elegant .pb-service-name,
+.public-page.style-elegant .pb-service-price,
+.public-page.style-classic .pb-service-name,
+.public-page.style-classic .pb-service-price,
+.public-page.style-classic .pb-hours-list li,
+.public-page.style-classic .pb-summary-row {
+  font-family: inherit;
+}
